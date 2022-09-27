@@ -2312,7 +2312,25 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
                     )));
               })
             : SizedBox.shrink();
-    return widget.hint != null
+    Widget futureOrderAndFilterButtons = Row(
+      children: <Widget>[
+        widget.futureSearchOrderOptions == null
+            ? SizedBox.shrink()
+            : futureSearchOrderOptionsWidget,
+        widget.futureSearchOrderOptions != null &&
+                widget.futureSearchFilterOptions != null
+            ? SizedBox(
+                width: 10,
+              )
+            : SizedBox.shrink(),
+        widget.futureSearchFilterOptions == null
+            ? SizedBox.shrink()
+            : futureSearchFilterOptionsWidget,
+      ],
+    );
+    return (widget.hint != null ||
+            widget.futureSearchOrderOptions != null ||
+            widget.futureSearchFilterOptions != null)
         ? Container(
             margin: EdgeInsets.only(bottom: 8),
             child: Row(
@@ -2321,22 +2339,7 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   prepareWidget(widget.hint) ?? SizedBox.shrink(),
-                  Row(
-                    children: <Widget>[
-                      widget.futureSearchOrderOptions == null
-                          ? SizedBox.shrink()
-                          : futureSearchOrderOptionsWidget,
-                      widget.futureSearchOrderOptions != null &&
-                              widget.futureSearchFilterOptions != null
-                          ? SizedBox(
-                              width: 10,
-                            )
-                          : SizedBox.shrink(),
-                      widget.futureSearchFilterOptions == null
-                          ? SizedBox.shrink()
-                          : futureSearchFilterOptionsWidget,
-                    ],
-                  ),
+                  futureOrderAndFilterButtons,
                   Column(
                     children: <Widget>[
                       doneButtonWidget ?? SizedBox.shrink(),
