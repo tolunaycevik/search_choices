@@ -1,6 +1,8 @@
 ## 2.1.2
 
 * Sort and filter buttons don't appear when searchHint is not provided. Thanks @rob-mur https://github.com/lcuis/search_choices/issues/88
+* Initial effort to support FormField parameters. Thanks @martin-labanic https://github.com/lcuis/search_choices/issues/68
+* Recording Flutster automated integration testing as a playable video.
 
 ## 2.1.1
 

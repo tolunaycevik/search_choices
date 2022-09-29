@@ -156,7 +156,7 @@ Widget? prepareWidget(dynamic object,
 /// selected.
 /// Use the [SearchChoices.multiple] factory if user must be able to select
 /// multiple items at once.
-class SearchChoices<T> extends StatefulWidget {
+class SearchChoices<T> extends FormField<T> {
   /// [dialogBoxMenuWrapper] [Function] called to wrap the menu widget when
   /// in dialog box mode. This is useful for testing mainly.
   static Widget Function(Widget)? dialogBoxMenuWrapper;
@@ -249,7 +249,7 @@ class SearchChoices<T> extends StatefulWidget {
 
   /// [validator] [Function] with parameter: __value__ returning [String]
   /// displayed below selected value when not valid and null when valid.
-  final Function? validator;
+  final String? Function(T?)? validator;
 
   /// [multipleSelection] indicates whether user can select one or more items.
   final bool multipleSelection;
@@ -439,6 +439,19 @@ class SearchChoices<T> extends StatefulWidget {
     String searchTerms,
   )? showDialogFn;
 
+  /// [onSaved] as in FormField.
+  final FormFieldSetter<T>? onSaved;
+
+  /// [listValidator] [Function] with parameter: __List__ returning [String]
+  /// displayed below selected value when not valid and null when valid.
+  final String? Function(List<T?>)? listValidator;
+
+  /// [autovalidateMode] as in FormField.
+  final AutovalidateMode autovalidateMode;
+
+  /// [restorationId] as in FormField.
+  final String? restorationId;
+
   /// Search choices Widget with a single choice that opens a dialog or a menu
   /// to let the user do the selection conveniently with a search.
   ///
@@ -561,6 +574,11 @@ class SearchChoices<T> extends StatefulWidget {
   /// Should differ when selection is not valid.
   /// * [clearSearchIcon] [Widget] sets the icon to be used to clear the search.
   /// * [showDialogFn] [Function] allows the control of the dialog display.
+  /// * [onSaved] as in FormField.
+  /// * [listValidator] [Function] with parameter: __List__ returning [String]
+  /// displayed below selected value when not valid and null when valid.
+  /// * [autovalidateMode] as in FormField.
+  /// * [restorationId] as in FormField.
   factory SearchChoices.single({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -586,7 +604,7 @@ class SearchChoices<T> extends StatefulWidget {
     Function? onClear,
     Function? selectedValueWidgetFn,
     TextInputType keyboardType = TextInputType.text,
-    Function? validator,
+    String? Function(T?)? validator,
     bool assertUniqueValue = true,
     Function? displayItem,
     bool dialogBox = true,
@@ -639,6 +657,9 @@ class SearchChoices<T> extends StatefulWidget {
       String searchTerms,
     )?
         showDialogFn,
+    FormFieldSetter<T>? onSaved,
+    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
+    String? restorationId,
   }) {
     return (SearchChoices._(
       key: key,
@@ -694,6 +715,9 @@ class SearchChoices<T> extends StatefulWidget {
       fieldDecoration: fieldDecoration,
       clearSearchIcon: clearSearchIcon,
       showDialogFn: showDialogFn,
+      onSaved: onSaved,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
     ));
   }
 
@@ -823,6 +847,8 @@ class SearchChoices<T> extends StatefulWidget {
   /// Should differ when selection is not valid.
   /// * [clearSearchIcon] [Widget] sets the icon to be used to clear the search.
   /// [showDialogFn] [Function] allows the control of the dialog display.
+  /// * [listValidator] [Function] with parameter: __List__ returning [String]
+  /// displayed below selected value when not valid and null when valid.
   factory SearchChoices.multiple({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -848,7 +874,7 @@ class SearchChoices<T> extends StatefulWidget {
     Function? onClear,
     Function? selectedValueWidgetFn,
     TextInputType keyboardType = TextInputType.text,
-    Function? validator,
+    String? Function(T?)? validator,
     Function? displayItem,
     bool dialogBox = true,
     BoxConstraints? menuConstraints,
@@ -901,6 +927,10 @@ class SearchChoices<T> extends StatefulWidget {
       String searchTerms,
     )?
         showDialogFn,
+    FormFieldSetter<T>? onSaved,
+    String? Function(List<dynamic>)? listValidator,
+    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
+    String? restorationId,
   }) {
     return (SearchChoices._(
       key: key,
@@ -957,8 +987,16 @@ class SearchChoices<T> extends StatefulWidget {
       fieldDecoration: fieldDecoration,
       clearSearchIcon: clearSearchIcon,
       showDialogFn: showDialogFn,
+      onSaved: onSaved,
+      listValidator: listValidator,
+      autovalidateMode: autovalidateMode,
+      restorationId: restorationId,
     ));
   }
+
+  bool get isEnabled =>
+      (items?.isNotEmpty ?? false || futureSearchFn != null) &&
+      (onChanged != null || onChanged is Function);
 
   SearchChoices._({
     Key? key,
@@ -1016,6 +1054,10 @@ class SearchChoices<T> extends StatefulWidget {
     this.fieldDecoration,
     this.clearSearchIcon,
     this.showDialogFn,
+    this.onSaved,
+    this.listValidator,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.restorationId,
   })  : assert(!multipleSelection || doneButton != null),
         assert(menuConstraints == null || !dialogBox),
         assert(itemsPerPage == null || currentPage != null,
@@ -1064,13 +1106,25 @@ class SearchChoices<T> extends StatefulWidget {
             "use either validator or fieldDecoration"),
         assert(dialogBox || showDialogFn == null,
             "use showDialogFn only with dialogBox"),
-        super(key: key);
+        super(
+          key: key,
+          builder: (FormFieldState<dynamic> state) {
+            return (Text("TODO"));
+          },
+          onSaved: onSaved,
+          validator: validator,
+          initialValue: value,
+          enabled: (items?.isNotEmpty ?? false || futureSearchFn != null) &&
+              (onChanged != null || onChanged is Function),
+          autovalidateMode: autovalidateMode,
+          restorationId: restorationId,
+        );
 
   @override
-  _SearchChoicesState<T> createState() => _SearchChoicesState();
+  _SearchChoicesState<T> createState() => _SearchChoicesState<T>();
 }
 
-class _SearchChoicesState<T> extends State<SearchChoices<T>> {
+class _SearchChoicesState<T> extends FormFieldState<T> {
   List<int>? selectedItems;
   PointerThisPlease<bool> displayMenu = PointerThisPlease<bool>(false);
   Function? updateParent;
@@ -1078,6 +1132,9 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
   List<T> futureSelectedValues = [];
 
   Function? pop;
+
+  @override
+  SearchChoices<T> get widget => super.widget as SearchChoices<T>;
 
   giveMeThePop(Function pop) {
     this.pop = pop;
@@ -1092,9 +1149,7 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
               .subtitle1!
               .copyWith(color: _disabledIconColor)) ??
       TextStyle();
-  bool get _enabled =>
-      (widget.items?.isNotEmpty ?? false || widget.futureSearchFn != null) &&
-      (widget.onChanged != null || widget.onChanged is Function);
+  bool get _enabled => widget.isEnabled;
 
   Color? get _enabledIconColor {
     if (widget.iconEnabledColor != null) {
@@ -1128,10 +1183,17 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
   }
 
   bool get valid {
-    if (widget.validator == null) {
-      return (true);
+    return (validResult == null);
+  }
+
+  String? get validResult {
+    if (widget.listValidator != null) {
+      return (widget.listValidator!(selectedResult));
     }
-    return (widget.validator!(selectedResult) == null);
+    if (widget.validator != null) {
+      return (widget.validator!(selectedResult));
+    }
+    return (null);
   }
 
   bool get hasSelection {
@@ -1287,8 +1349,8 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
   }
 
   @override
-  void didUpdateWidget(SearchChoices oldWidget) {
-    super.didUpdateWidget(oldWidget as SearchChoices<T>);
+  void didUpdateWidget(SearchChoices<T> oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (widget.futureSearchFn != null) {
       updateSelectedValues();
     } else {
@@ -1350,6 +1412,7 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
         searchDelay: widget.searchDelay,
         giveMeThePop: giveMeThePop,
         clearSearchIcon: widget.clearSearchIcon,
+        listValidator: widget.listValidator,
       ));
     });
   }
@@ -1536,10 +1599,7 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
     );
 
     final double bottom = 8.0;
-    var validatorOutput;
-    if (widget.validator != null) {
-      validatorOutput = widget.validator!(selectedResult);
-    }
+    var validatorOutput = validResult;
     var labelOutput = prepareWidget(widget.label, parameter: selectedResult,
         stringToWidgetFunction: (string) {
       return (Text(string,
@@ -1599,17 +1659,14 @@ class _SearchChoicesState<T> extends State<SearchChoices<T>> {
       children: <Widget>[
         labelOutput ?? SizedBox.shrink(),
         fieldPresentation,
-        valid
+        ((validatorOutput == null)
             ? SizedBox.shrink()
-            : validatorOutput is String
-                ? Text(
-                    validatorOutput,
-                    textDirection: widget.rightToLeft
-                        ? TextDirection.rtl
-                        : TextDirection.ltr,
-                    style: TextStyle(color: Colors.red, fontSize: 13),
-                  )
-                : validatorOutput,
+            : Text(
+                validatorOutput,
+                textDirection:
+                    widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+                style: TextStyle(color: Colors.red, fontSize: 13),
+              )),
         displayMenu.value ? menuWidget() : SizedBox.shrink(),
       ],
     );
@@ -1770,6 +1827,9 @@ class DropdownDialog<T> extends StatefulWidget {
   /// See SearchChoices class.
   final Widget? clearSearchIcon;
 
+  /// See SearchChoices class.
+  final String? Function(List<T?>)? listValidator;
+
   DropdownDialog({
     Key? key,
     this.items,
@@ -1811,6 +1871,7 @@ class DropdownDialog<T> extends StatefulWidget {
     this.searchDelay,
     required this.giveMeThePop,
     this.clearSearchIcon,
+    this.listValidator,
   }) : super(key: key);
 
   _DropdownDialogState<T> createState() => _DropdownDialogState<T>();
@@ -2265,29 +2326,31 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
   }
 
   bool get valid {
-    if (widget.validator == null) {
-      return (true);
+    return (validResult == null);
+  }
+
+  String? get validResult {
+    if (widget.listValidator != null) {
+      return (widget.listValidator!(selectedResult));
     }
-    return (widget.validator!(selectedResult) == null);
+    if (widget.validator != null) {
+      return (widget.validator!(selectedResult));
+    }
+    return (null);
   }
 
   /// Widget displayed above the search bar.
   Widget titleBar() {
-    var validatorOutput;
-    if (widget.validator != null) {
-      validatorOutput = widget.validator!(selectedResult);
-    }
+    var validatorOutput = validResult;
 
-    Widget validatorOutputWidget = valid || !widget.dialogBox
+    Widget validatorOutputWidget = validatorOutput == null || !widget.dialogBox
         ? SizedBox.shrink()
-        : validatorOutput is String
-            ? Text(
-                validatorOutput,
-                textDirection:
-                    widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
-                style: TextStyle(color: Colors.red, fontSize: 13),
-              )
-            : validatorOutput;
+        : Text(
+            validatorOutput,
+            textDirection:
+                widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+            style: TextStyle(color: Colors.red, fontSize: 13),
+          );
 
     Widget? doneButtonWidget =
         widget.multipleSelection || widget.doneButton != null

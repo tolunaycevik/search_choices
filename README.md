@@ -161,6 +161,9 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
       String searchTerms,
     )?
         showDialogFn,
+    FormFieldSetter<T>? onSaved,
+    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
+    String? restorationId,
   })
 ```
 
@@ -216,6 +219,9 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
 * fieldDecoration Decoration is the decoration of the SearchChoices Widget while displaying the hints or the selected values. Should differ when selection is not valid.
 * clearSearchIcon Widget sets the icon to be used to clear the search.
 * showDialogFn Function allows the control of the dialog display.
+* onSaved as in FormField.
+* autovalidateMode as in FormField.
+* restorationId as in FormField.
 
 
 #### Multiple choice constructor
@@ -299,6 +305,10 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
       String searchTerms,
     )?
         showDialogFn,
+    FormFieldSetter<T>? onSaved,
+    String? Function(List<dynamic>)? listValidator,
+    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
+    String? restorationId,
   })
 ```
 
@@ -354,6 +364,10 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
 * fieldDecoration Decoration is the decoration of the SearchChoices Widget while displaying the hints or the selected values. Should differ when selection is not valid.
 * clearSearchIcon Widget sets the icon to be used to clear the search.
 * showDialogFn Function allows the control of the dialog display.
+* onSaved as in FormField.
+* listValidator Function with parameter: List returning String displayed below selected value when not valid and null when valid.
+* autovalidateMode as in FormField.
+* restorationId as in FormField.
 
 #### Example app usage
 
@@ -2707,3 +2721,5 @@ In your pull request, feel free to add your line in the contributors section bel
 ## CI/CD
 
 Continuous integration/deployment status: ![CI-CD](https://github.com/lcuis/search_choices/workflows/CI-CD/badge.svg)
+
+Automated integration testing was done using [Flutster](https://flutster.com). Here is the latest recorded video of this automated integration testing: [http://searchchoices.jod.li/integration_test.mkv](http://searchchoices.jod.li/integration_test.mkv)
