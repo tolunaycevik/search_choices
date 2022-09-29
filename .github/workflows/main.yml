@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'pubspec.yaml'
+      - '.github/workflows/main.yaml'
 
 jobs:
   test:
