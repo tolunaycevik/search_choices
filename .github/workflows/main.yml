@@ -49,7 +49,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v1
-      - run: cd example&&scrcpy --record-format=mkv -r integration_test.mkv&&flutter test integration_test/example_test.dart --dart-define="flutsterKey=${{ secrets.FLUTSTERAPIKEY }}" --dart-define="flutsterUser=${{ secrets.FLUTSTERAPIUSER }}" --dart-define="flutsterUrl=${{ secrets.FLUTSTERAPIURL }}";killall scrcpy
+      - run: cd example&&scrcpy --record-format=mkv -r integration_test.mkv & &&flutter test integration_test/example_test.dart --dart-define="flutsterKey=${{ secrets.FLUTSTERAPIKEY }}" --dart-define="flutsterUser=${{ secrets.FLUTSTERAPIUSER }}" --dart-define="flutsterUrl=${{ secrets.FLUTSTERAPIURL }}";killall scrcpy
       - name: Deploy Flutster integration testing video
         uses: garygrossgarten/github-action-scp@release
         with:
