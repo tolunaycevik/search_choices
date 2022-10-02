@@ -1,3 +1,7 @@
+## 2.1.3
+
+* Corrected video link on readme page to use https instead of http.
+
 ## 2.1.2
 
 * Sort and filter buttons don't appear when searchHint is not provided. Thanks @rob-mur https://github.com/lcuis/search_choices/issues/88

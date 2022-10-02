@@ -2722,4 +2722,4 @@ In your pull request, feel free to add your line in the contributors section bel
 
 Continuous integration/deployment status: ![CI-CD](https://github.com/lcuis/search_choices/workflows/CI-CD/badge.svg)
 
-Automated integration testing was done using [Flutster](https://flutster.com). Here is the latest recorded video of this automated integration testing: [http://searchchoices.jod.li/integration_test.mkv](http://searchchoices.jod.li/integration_test.mkv)
+Automated integration testing was done using [Flutster](https://flutster.com). Here is the latest recorded video of this automated integration testing: [https://searchchoices.jod.li/integration_test.mkv](https://searchchoices.jod.li/integration_test.mkv)
