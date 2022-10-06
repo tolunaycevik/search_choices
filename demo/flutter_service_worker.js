@@ -14,7 +14,7 @@ const RESOURCES = {
 "canvaskit/profiling/canvaskit.js": "38164e5a72bdad0faa4ce740c9b8e564",
 "canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
 "assets/AssetManifest.json": "99914b932bd37a50b983c5e7c90ae93b",
-"assets/shaders/ink_sparkle.frag": "0cc60a8f8615e45b11b1f78edf49c577",
+"assets/shaders/ink_sparkle.frag": "237ceacd6c04871e538aaa934b1327a3",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
 "assets/NOTICES": "117be172edcd01aff3afd7226a688f0f",
