@@ -1,3 +1,7 @@
+## 2.1.4
+
+* Updated kotlin version from 1.3.50 to 1.7.20 . Thanks @wutsi https://github.com/lcuis/search_choices/issues/91
+
 ## 2.1.3
 
 * Corrected video link on readme page to use https instead of http.
