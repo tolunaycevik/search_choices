@@ -1291,7 +1291,12 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   }
 
   sendSelection(dynamic selection, [BuildContext? onChangeContext]) {
-    didChange(selection);
+    try {
+      didChange(selection);
+    } catch (e, st) {
+      debugPrint(
+          "Warning: didChange call threw an error: ${e.toString()} ${st.toString()} You may want to reconsider the declared types otherwise the form validation may not consider this field properly.");
+    }
     try {
       widget.onChanged!(selection);
     } catch (e) {

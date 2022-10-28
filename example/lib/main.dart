@@ -1257,8 +1257,8 @@ class MyAppState extends State<MyApp> {
           "تزنيت‎",
           "آكــلــو",
           "سيدي بيبي",
-        ].map<DropdownMenuItem<String>>((string) {
-          return (DropdownMenuItem<String>(
+        ].map<DropdownMenuItem>((string) {
+          return (DropdownMenuItem(
             value: string,
             child: Text(
               string,
@@ -1612,8 +1612,8 @@ class MyAppState extends State<MyApp> {
           }
           dynamic data = jsonDecode(response.body);
           int nbResults = data["results"];
-          List<DropdownMenuItem> results = (data["records"] as List<dynamic>)
-              .map<DropdownMenuItem>((item) => DropdownMenuItem(
+          var results = (data["records"] as List<dynamic>)
+              .map((item) => DropdownMenuItem(
                     value: item,
                     child: Card(
                       shape: RoundedRectangleBorder(
