@@ -15,49 +15,50 @@ More examples are available in this project.
 
 See code below.
 
-| Example name | Demonstration |
-| --- | --- |
-| [Single dialog](#Single-dialog) | ![Single dialog](https://searchchoices.jod.li/Single%20dialog.gif) |
-| [Multi dialog](#Multi-dialog) | ![Multi dialog](https://searchchoices.jod.li/Multi%20dialog.gif) |
-| [Single done button<br>dialog](#Single-done-button-dialog) | ![Single done button dialog](https://searchchoices.jod.li/Single%20done%20button%20dialog.gif) |
-| [Multi custom display<br>dialog](#Multi-custom-display-dialog) | ![Multi custom display dialog](https://searchchoices.jod.li/Multi%20custom%20display%20dialog.gif) |
-| [Multi select 3 dialog](#Multi-select-3-dialog) | ![Multi select 3 dialog](https://searchchoices.jod.li/Multi%20select%203%20dialog.gif) |
-| [Single menu](#Single-menu) | ![Single menu](https://searchchoices.jod.li/Single%20menu.gif) |
-| [Multi menu](#Multi-menu) | ![Multi menu](https://searchchoices.jod.li/Multi%20menu.gif) |
-| [Multi menu select<br>all/none](#Multi-menu-select-allnone) | ![Multi menu select all or none](https://searchchoices.jod.li/Multi%20menu%20select%20all%20or%20none.gif) |
+| Example name                                                                                | Demonstration                                                                                                                                  |
+|---------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Single dialog](#Single-dialog)                                                             | ![Single dialog](https://searchchoices.jod.li/Single%20dialog.gif)                                                                             |
+| [Multi dialog](#Multi-dialog)                                                               | ![Multi dialog](https://searchchoices.jod.li/Multi%20dialog.gif)                                                                               |
+| [Single done button<br>dialog](#Single-done-button-dialog)                                  | ![Single done button dialog](https://searchchoices.jod.li/Single%20done%20button%20dialog.gif)                                                 |
+| [Multi custom display<br>dialog](#Multi-custom-display-dialog)                              | ![Multi custom display dialog](https://searchchoices.jod.li/Multi%20custom%20display%20dialog.gif)                                             |
+| [Multi select 3 dialog](#Multi-select-3-dialog)                                             | ![Multi select 3 dialog](https://searchchoices.jod.li/Multi%20select%203%20dialog.gif)                                                         |
+| [Single menu](#Single-menu)                                                                 | ![Single menu](https://searchchoices.jod.li/Single%20menu.gif)                                                                                 |
+| [Multi menu](#Multi-menu)                                                                   | ![Multi menu](https://searchchoices.jod.li/Multi%20menu.gif)                                                                                   |
+| [Multi menu select<br>all/none](#Multi-menu-select-allnone)                                 | ![Multi menu select all or none](https://searchchoices.jod.li/Multi%20menu%20select%20all%20or%20none.gif)                                     |
 | [Multi dialog select<br>all/none without clear](#Multi-dialog-select-allnone-without-clear) | ![Multi dialog select all or none without clear](https://searchchoices.jod.li/Multi%20dialog%20select%20all%20or%20none%20without%20clear.gif) |
-| [Single dialog custom<br>keyboard](#Single-dialog-custom-keyboard) | ![Single dialog custom keyboard](https://searchchoices.jod.li/Single%20dialog%20custom%20keyboard.gif) |
-| [Single dialog object](#Single-dialog-object) | ![Single dialog object](https://searchchoices.jod.li/Single%20dialog%20object.gif) |
-| [Single dialog overflow](#Single-dialog-overflow) | ![Single dialog overflow](https://searchchoices.jod.li/Single%20dialog%20overflow.gif) |
-| [Single dialog readOnly](#Single-dialog-readOnly) | ![Single dialog readOnly](https://searchchoices.jod.li/Single%20dialog%20readOnly.png) |
-| [Single dialog disabled](#Single-dialog-disabled) | ![Single dialog disabled](https://searchchoices.jod.li/Single%20dialog%20disabled.png) |
-| [Single dialog<br>editable items](#Single-dialog-editable-items) | ![Single dialog editable items](https://searchchoices.jod.li/Single%20dialog%20editable%20items.gif) |
-| [Single menu<br>editable items](#Single-menu-editable-items) | ![Single menu editable items](https://searchchoices.jod.li/Single%20menu%20editable%20items.gif) |
-| [Multi dialog<br>editable items](#Multi-dialog-editable-items) | ![Multi dialog editable items](https://searchchoices.jod.li/Multi%20dialog%20editable%20items.gif) |
-| [Single dialog dark<br>mode](#Single-dialog-dark-mode) | ![Single dialog dark mode](https://searchchoices.jod.li/Single%20dialog%20dark%20mode.gif) |
-| [Single dialog ellipsis](#Single-dialog-ellipsis) | ![Single dialog ellipsis](https://searchchoices.jod.li/Single%20dialog%20ellipsis.gif) |
-| [Single dialog right<br>to left](#Single-dialog-right-to-left) | ![Single dialog right to left](https://searchchoices.jod.li/Single%20dialog%20right%20to%20left.gif) |
-| [Update value from<br>outside the plugin](#Update-value-from-outside-the-plugin) | ![Update value from outside the plugin](https://searchchoices.jod.li/Update%20value%20from%20outside%20the%20plugin.gif) |
-| [Multi select 3 menu<br>no-autofocus](#Multi-select-3-menu-no-autofocus) | ![Multi select 3 menu no-autofocus](https://searchchoices.jod.li/Multi%20select%203%20menu%20no-autofocus.gif) |
-| [Multi dialog with<br>count and wrap](#Multi-dialog-with-count-and-wrap) | ![Multi dialog with count and wrap](https://searchchoices.jod.li/Multi%20dialog%20with%20count%20and%20wrap.gif) |
-| [Single dialog open<br>and set search terms](#Single-dialog-open-and-set-search-terms) | ![Single dialog open and set search terms](https://searchchoices.jod.li/Single%20dialog%20open%20and%20set%20search%20terms.gif) |
-| [Single dialog custom<br>dialog](#Single-dialog-custom-dialog) | ![Single dialog custom dialog](https://searchchoices.jod.li/Single%20dialog%20custom%20dialog.gif) |
-| [Single dialog custom<br>decorations](#Single-dialog-custom-decorations) | ![Single dialog custom decorations](https://searchchoices.jod.li/Single%20dialog%20custom%20decorations.gif) |
-| [Single dialog paged](#Single-dialog-paged) | ![Single dialog paged](https://searchchoices.jod.li/Single%20dialog%20paged.gif) |
-| [Multi dialog paged<br>rtl](#Multi-dialog-paged-rtl) | ![Multi dialog paged rtl](https://searchchoices.jod.li/Multi%20dialog%20paged%20rtl.gif) |
-| [Single dialog paged<br>custom pagination](#Single-dialog-paged-custom-pagination) | ![Single dialog paged custom pagination](https://searchchoices.jod.li/Single%20dialog%20paged%20custom%20pagination.gif) |
-| [Single menu paged](#Single-menu-paged) | ![Single menu paged](https://searchchoices.jod.li/Single%20menu%20paged.gif) |
-| [Single dialog<br>paged future](#Single-dialog-paged-future) | ![Single dialog paged future](https://searchchoices.jod.li/Single%20dialog%20paged%20future.gif) |
-| [Multi menu paged<br>future](#Multi-menu-paged-future) | ![Multi menu paged future](https://searchchoices.jod.li/Multi%20menu%20paged%20future.gif) |
-| [Single dialog<br>custom empty list](#Single-dialog-custom-empty-list) | ![Single dialog custom empty list](https://searchchoices.jod.li/Single%20dialog%20custom%20empty%20list.gif) |
-| [Single dialog future<br>custom empty list](#Single-dialog-future-custom-empty-list) | ![Single dialog future custom empty list](https://searchchoices.jod.li/Single%20dialog%20future%20custom%20empty%20list.gif) |
-| [Single dialog onTap](#Single-dialog-onTap) | ![Single dialog onTap](https://searchchoices.jod.li/Single%20dialog%20onTap.gif) |
-| [Multi dialog paged<br>future](#Multi-dialog-paged-future) | ![Multi dialog paged future](https://searchchoices.jod.li/Multi%20dialog%20paged%20future.gif) |
-| [Single dialog future<br>custom error button](#Single-dialog-future-custom-error-button) | ![Single dialog future custom error button](https://searchchoices.jod.li/Single%20dialog%20future%20custom%20error%20button.gif) |
-| [Single dialog paged<br>delayed](#Single-dialog-paged-delayed) | ![Single dialog paged delayed](https://searchchoices.jod.li/Single%20dialog%20paged%20delayed.gif) |
-| [Single dialog paged<br>future delayed](#Single-dialog-paged-future-delayed) | ![Single dialog paged future delayed](https://searchchoices.jod.li/Single%20dialog%20paged%20future%20delayed.gif) |
-| [Single dialog custom<br>field presentation](#Single-dialog-custom-field-presentation) | ![Single dialog custom field presentation](https://searchchoices.jod.li/Single%20dialog%20custom%20field%20presentation.gif) |
-| [Single custom showDialogFn](#Single-custom-showDialogFn) | ![Single custom showDialogFn](https://searchchoices.jod.li/Single%20custom%20showDialogFn.gif) |
+| [Single dialog custom<br>keyboard](#Single-dialog-custom-keyboard)                          | ![Single dialog custom keyboard](https://searchchoices.jod.li/Single%20dialog%20custom%20keyboard.gif)                                         |
+| [Single dialog object](#Single-dialog-object)                                               | ![Single dialog object](https://searchchoices.jod.li/Single%20dialog%20object.gif)                                                             |
+| [Single dialog overflow](#Single-dialog-overflow)                                           | ![Single dialog overflow](https://searchchoices.jod.li/Single%20dialog%20overflow.gif)                                                         |
+| [Single dialog readOnly](#Single-dialog-readOnly)                                           | ![Single dialog readOnly](https://searchchoices.jod.li/Single%20dialog%20readOnly.png)                                                         |
+| [Single dialog disabled](#Single-dialog-disabled)                                           | ![Single dialog disabled](https://searchchoices.jod.li/Single%20dialog%20disabled.png)                                                         |
+| [Single dialog<br>editable items](#Single-dialog-editable-items)                            | ![Single dialog editable items](https://searchchoices.jod.li/Single%20dialog%20editable%20items.gif)                                           |
+| [Single menu<br>editable items](#Single-menu-editable-items)                                | ![Single menu editable items](https://searchchoices.jod.li/Single%20menu%20editable%20items.gif)                                               |
+| [Multi dialog<br>editable items](#Multi-dialog-editable-items)                              | ![Multi dialog editable items](https://searchchoices.jod.li/Multi%20dialog%20editable%20items.gif)                                             |
+| [Single dialog dark<br>mode](#Single-dialog-dark-mode)                                      | ![Single dialog dark mode](https://searchchoices.jod.li/Single%20dialog%20dark%20mode.gif)                                                     |
+| [Single dialog ellipsis](#Single-dialog-ellipsis)                                           | ![Single dialog ellipsis](https://searchchoices.jod.li/Single%20dialog%20ellipsis.gif)                                                         |
+| [Single dialog right<br>to left](#Single-dialog-right-to-left)                              | ![Single dialog right to left](https://searchchoices.jod.li/Single%20dialog%20right%20to%20left.gif)                                           |
+| [Update value from<br>outside the plugin](#Update-value-from-outside-the-plugin)            | ![Update value from outside the plugin](https://searchchoices.jod.li/Update%20value%20from%20outside%20the%20plugin.gif)                       |
+| [Multi select 3 menu<br>no-autofocus](#Multi-select-3-menu-no-autofocus)                    | ![Multi select 3 menu no-autofocus](https://searchchoices.jod.li/Multi%20select%203%20menu%20no-autofocus.gif)                                 |
+| [Multi dialog with<br>count and wrap](#Multi-dialog-with-count-and-wrap)                    | ![Multi dialog with count and wrap](https://searchchoices.jod.li/Multi%20dialog%20with%20count%20and%20wrap.gif)                               |
+| [Single dialog open<br>and set search terms](#Single-dialog-open-and-set-search-terms)      | ![Single dialog open and set search terms](https://searchchoices.jod.li/Single%20dialog%20open%20and%20set%20search%20terms.gif)               |
+| [Single dialog custom<br>dialog](#Single-dialog-custom-dialog)                              | ![Single dialog custom dialog](https://searchchoices.jod.li/Single%20dialog%20custom%20dialog.gif)                                             |
+| [Single dialog custom<br>decorations](#Single-dialog-custom-decorations)                    | ![Single dialog custom decorations](https://searchchoices.jod.li/Single%20dialog%20custom%20decorations.gif)                                   |
+| [Single dialog paged](#Single-dialog-paged)                                                 | ![Single dialog paged](https://searchchoices.jod.li/Single%20dialog%20paged.gif)                                                               |
+| [Multi dialog paged<br>rtl](#Multi-dialog-paged-rtl)                                        | ![Multi dialog paged rtl](https://searchchoices.jod.li/Multi%20dialog%20paged%20rtl.gif)                                                       |
+| [Single dialog paged<br>custom pagination](#Single-dialog-paged-custom-pagination)          | ![Single dialog paged custom pagination](https://searchchoices.jod.li/Single%20dialog%20paged%20custom%20pagination.gif)                       |
+| [Single menu paged](#Single-menu-paged)                                                     | ![Single menu paged](https://searchchoices.jod.li/Single%20menu%20paged.gif)                                                                   |
+| [Single dialog<br>paged future](#Single-dialog-paged-future)                                | ![Single dialog paged future](https://searchchoices.jod.li/Single%20dialog%20paged%20future.gif)                                               |
+| [Multi menu paged<br>future](#Multi-menu-paged-future)                                      | ![Multi menu paged future](https://searchchoices.jod.li/Multi%20menu%20paged%20future.gif)                                                     |
+| [Single dialog<br>custom empty list](#Single-dialog-custom-empty-list)                      | ![Single dialog custom empty list](https://searchchoices.jod.li/Single%20dialog%20custom%20empty%20list.gif)                                   |
+| [Single dialog future<br>custom empty list](#Single-dialog-future-custom-empty-list)        | ![Single dialog future custom empty list](https://searchchoices.jod.li/Single%20dialog%20future%20custom%20empty%20list.gif)                   |
+| [Single dialog onTap](#Single-dialog-onTap)                                                 | ![Single dialog onTap](https://searchchoices.jod.li/Single%20dialog%20onTap.gif)                                                               |
+| [Multi dialog paged<br>future](#Multi-dialog-paged-future)                                  | ![Multi dialog paged future](https://searchchoices.jod.li/Multi%20dialog%20paged%20future.gif)                                                 |
+| [Single dialog future<br>custom error button](#Single-dialog-future-custom-error-button)    | ![Single dialog future custom error button](https://searchchoices.jod.li/Single%20dialog%20future%20custom%20error%20button.gif)               |
+| [Single dialog paged<br>delayed](#Single-dialog-paged-delayed)                              | ![Single dialog paged delayed](https://searchchoices.jod.li/Single%20dialog%20paged%20delayed.gif)                                             |
+| [Single dialog paged<br>future delayed](#Single-dialog-paged-future-delayed)                | ![Single dialog paged future delayed](https://searchchoices.jod.li/Single%20dialog%20paged%20future%20delayed.gif)                             |
+| [Single dialog custom<br>field presentation](#Single-dialog-custom-field-presentation)      | ![Single dialog custom field presentation](https://searchchoices.jod.li/Single%20dialog%20custom%20field%20presentation.gif)                   |
+| [Single custom showDialogFn](#Single-custom-showDialogFn)                                   | ![Single custom showDialogFn](https://searchchoices.jod.li/Single%20custom%20showDialogFn.gif)                                                 |
+| [Validator in form](#Validator-in-form)                                                     | ![Validator in form](https://searchchoices.jod.li/Validator%20in%20form.gif)                                                                   |
 
 ### Code
 
@@ -2687,7 +2688,91 @@ SearchChoices.single(
             },
           )
 ```
-
+### Validator in form
+The form field validator is called by the parent form validator.
+```dart
+      Form(
+        key: _formKeyForValidator,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TextFormField(
+              validator: (String? value) {
+                if (value == "ok") {
+                  return (null);
+                }
+                return ("Not the expected value");
+              },
+            ),
+            SearchChoices.single(
+              items: items,
+              value: selectedValueSingleDialog,
+              onChanged: (value) {
+                setState(() {
+                  selectedValueSingleDialog = value;
+                });
+              },
+              isExpanded: true,
+              validator: (dynamic value) {
+                if (value == null) {
+                  return ("Must select a value");
+                }
+                if (!(value is String)) {
+                  return ("Selected value must be a String");
+                }
+                if (value.startsWith("l")) {
+                  return (null);
+                }
+                return ("Must start with 'l'");
+              },
+            ),
+            SearchChoices.multiple(
+              items: items,
+              selectedItems: selectedItemsMultiDialog,
+              onChanged: (value) {
+                setState(() {
+                  selectedItemsMultiDialog = value;
+                });
+              },
+              isExpanded: true,
+              validator: (dynamic value) {
+                if (value == null) {
+                  return ("Must select some values");
+                }
+                if (!(value is List<int>)) {
+                  return ("Selection is of unexpected type");
+                }
+                if (value.length < 3) {
+                  return ("Must select at least 3");
+                }
+                return (null);
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                if (_formKeyForValidator.currentState?.validate() ?? false) {
+                  setState(() {
+                    formResult = "All good";
+                  });
+                } else {
+                  setState(() {
+                    formResult = "Form is not valid!";
+                  });
+                }
+              },
+              child: const Text("Ok"),
+            ),
+            formResult == null
+                ? SizedBox.shrink()
+                : Text(formResult ?? "",
+                    style: TextStyle(
+                      color:
+                          formResult == "All good" ? Colors.black : Colors.red,
+                    )),
+          ],
+        ),
+      )
+```
 ## Feature requests/comments/questions/bugs
 
 Feel free to log your feature requests/comments/questions/bugs here:

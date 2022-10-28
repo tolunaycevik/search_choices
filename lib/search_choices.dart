@@ -1109,7 +1109,8 @@ class SearchChoices<T> extends FormField<T> {
         super(
           key: key,
           builder: (FormFieldState<dynamic> state) {
-            return (Text("TODO"));
+            _SearchChoicesState<T> sCState = state as _SearchChoicesState<T>;
+            return (sCState.buildWidget(sCState.context));
           },
           onSaved: onSaved,
           validator: validator,
@@ -1290,6 +1291,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   }
 
   sendSelection(dynamic selection, [BuildContext? onChangeContext]) {
+    didChange(selection);
     try {
       widget.onChanged!(selection);
     } catch (e) {
@@ -1448,8 +1450,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildWidget(BuildContext context) {
     if (widget.setOpenDialog != null) {
       widget.setOpenDialog!(showDialogOrMenu);
     }

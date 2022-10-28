@@ -1,3 +1,7 @@
+## 2.1.5
+
+* Validator in form: The form field validator is called by the parent form validator. Thanks @martin-labanic https://github.com/lcuis/search_choices/issues/68
+
 ## 2.1.4
 
 * Updated kotlin version from 1.3.50 to 1.7.20 . Thanks @wutsi https://github.com/lcuis/search_choices/issues/91

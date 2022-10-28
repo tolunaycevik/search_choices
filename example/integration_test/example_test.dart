@@ -50,6 +50,7 @@ void main() async {
       86,
       88,
       90,
+      96,
     ];
     List<int> failedTests = [];
     app.main(testing: true);

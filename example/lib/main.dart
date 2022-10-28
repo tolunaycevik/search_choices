@@ -102,6 +102,7 @@ class MyAppState extends State<MyApp> {
   List<DropdownMenuItem> editableItems = [];
   List<DropdownMenuItem> futureItems = [];
   final _formKey = GlobalKey<FormState>();
+  final _formKeyForValidator = GlobalKey<FormState>();
   String inputString = "";
   TextFormField? input;
   List<DropdownMenuItem<ExampleNumber>> numberItems =
@@ -127,6 +128,9 @@ class MyAppState extends State<MyApp> {
   String widgetSearchString = "";
 
   TextEditingController widgetSearchController = TextEditingController();
+  final _messengerKey = GlobalKey<ScaffoldMessengerState>();
+
+  String? formResult;
 
   @override
   void initState() {
@@ -2253,7 +2257,88 @@ class MyAppState extends State<MyApp> {
                 return (menuWidget(searchTerms: searchTerms));
               });
         },
-      )
+      ),
+      "Validator in form": Form(
+        key: _formKeyForValidator,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TextFormField(
+              validator: (String? value) {
+                if (value == "ok") {
+                  return (null);
+                }
+                return ("Not the expected value");
+              },
+            ),
+            SearchChoices.single(
+              items: items,
+              value: selectedValueSingleDialog,
+              onChanged: (value) {
+                setState(() {
+                  selectedValueSingleDialog = value;
+                });
+              },
+              isExpanded: true,
+              validator: (dynamic value) {
+                if (value == null) {
+                  return ("Must select a value");
+                }
+                if (!(value is String)) {
+                  return ("Selected value must be a String");
+                }
+                if (value.startsWith("l")) {
+                  return (null);
+                }
+                return ("Must start with 'l'");
+              },
+            ),
+            SearchChoices.multiple(
+              items: items,
+              selectedItems: selectedItemsMultiDialog,
+              onChanged: (value) {
+                setState(() {
+                  selectedItemsMultiDialog = value;
+                });
+              },
+              isExpanded: true,
+              validator: (dynamic value) {
+                if (value == null) {
+                  return ("Must select some values");
+                }
+                if (!(value is List<int>)) {
+                  return ("Selection is of unexpected type");
+                }
+                if (value.length < 3) {
+                  return ("Must select at least 3");
+                }
+                return (null);
+              },
+            ),
+            TextButton(
+              onPressed: () {
+                if (_formKeyForValidator.currentState?.validate() ?? false) {
+                  setState(() {
+                    formResult = "All good";
+                  });
+                } else {
+                  setState(() {
+                    formResult = "Form is not valid!";
+                  });
+                }
+              },
+              child: const Text("Ok"),
+            ),
+            formResult == null
+                ? SizedBox.shrink()
+                : Text(formResult ?? "",
+                    style: TextStyle(
+                      color:
+                          formResult == "All good" ? Colors.black : Colors.red,
+                    )),
+          ],
+        ),
+      ),
     };
 
     List<Widget> exampleWidgets = [];
@@ -2288,6 +2373,7 @@ class MyAppState extends State<MyApp> {
     }
 
     return MaterialApp(
+      scaffoldMessengerKey: _messengerKey,
       theme: ThemeData(
         textSelectionTheme: TextSelectionThemeData(
           cursorColor: FlutsterTestRecord.defaultRecord.active
@@ -2440,5 +2526,12 @@ class MyAppState extends State<MyApp> {
                 ],
               ),
             ))));
+  }
+
+  void snack(BuildContext context, dynamic content) {
+    if (content is String) {
+      content = Text(content);
+    }
+    _messengerKey.currentState?.showSnackBar(SnackBar(content: content));
   }
 }
