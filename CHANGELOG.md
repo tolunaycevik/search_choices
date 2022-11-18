@@ -1,3 +1,7 @@
+## 2.1.6
+
+* Removed assertion preventing the use of validator together with fieldDecoration. Thanks @willhhf https://github.com/lcuis/search_choices/issues/92
+
 ## 2.1.5
 
 * Validator in form: The form field validator is called by the parent form validator. Thanks @martin-labanic https://github.com/lcuis/search_choices/issues/68

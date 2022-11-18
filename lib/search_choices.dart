@@ -1102,8 +1102,6 @@ class SearchChoices<T> extends FormField<T> {
             "use either padding or fieldDecoration"),
         assert(fieldPresentationFn == null || padding == null,
             "use either padding or fieldPresentationFn"),
-        assert(fieldDecoration == null || validator == null,
-            "use either validator or fieldDecoration"),
         assert(dialogBox || showDialogFn == null,
             "use showDialogFn only with dialogBox"),
         super(
