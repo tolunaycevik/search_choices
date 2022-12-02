@@ -1,6 +1,10 @@
-## 2.1.6
+## 2.1.7
 
 * Removed assertion condition forcing buildDropDownDialog to be null if dialogBox is false. Thanks @krButani https://github.com/lcuis/search_choices/issues/93
+
+## 2.1.6
+
+* Removed assertion preventing the use of validator together with fieldDecoration. Thanks @willhhf https://github.com/lcuis/search_choices/issues/92
 
 ## 2.1.5
 
