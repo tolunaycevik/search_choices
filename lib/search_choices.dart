@@ -1066,11 +1066,8 @@ class SearchChoices<T> extends FormField<T> {
             dropDownDialogPadding == null || buildDropDownDialog == null,
             "buildDropDownDialog and dropDownDialogPadding cannot be set at" +
                 " the same time"),
-        assert(
-            dialogBox ||
-                (dropDownDialogPadding == null && buildDropDownDialog == null),
-            "buildDropDownDialog and dropDownDialogPadding must be null if" +
-                "dialogBox == false"),
+        assert(dialogBox || dropDownDialogPadding == null,
+            "dropDownDialogPadding must be null if dialogBox == false"),
         assert(
             futureSearchOrderOptions == null || futureSearchFn != null,
             "futureSearchOrderOptions is of no use if futureSearchFn is not " +
