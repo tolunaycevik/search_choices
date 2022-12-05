@@ -1,3 +1,7 @@
+## 2.1.8
+
+* Added parameter giveMeThePop to allow closing the dialog or menu from outside the widget. Thanks @krButani https://github.com/lcuis/search_choices/issues/94
+
 ## 2.1.7
 
 * Removed assertion condition forcing buildDropDownDialog to be null if dialogBox is false. Thanks @krButani https://github.com/lcuis/search_choices/issues/93

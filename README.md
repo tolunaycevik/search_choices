@@ -165,7 +165,8 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
     FormFieldSetter<T>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
-  })
+    Function(Function pop)? giveMeThePop,
+})
 ```
 
 * items with child: Widget displayed ; value: any object with .toString() used to match search keyword.
@@ -223,6 +224,7 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
 * onSaved as in FormField.
 * autovalidateMode as in FormField.
 * restorationId as in FormField.
+* giveMeThePop Function to pass the pop function so that the menu or dialog can be closed from outside the widget.
 
 
 #### Multiple choice constructor
@@ -310,6 +312,7 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
     String? Function(List<dynamic>)? listValidator,
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
+    Function(Function pop)? giveMeThePop,
   })
 ```
 
@@ -369,6 +372,7 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
 * listValidator Function with parameter: List returning String displayed below selected value when not valid and null when valid.
 * autovalidateMode as in FormField.
 * restorationId as in FormField.
+* giveMeThePop Function to pass the pop function so that the menu or dialog can be closed from outside the widget.
 
 #### Example app usage
 

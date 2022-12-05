@@ -452,6 +452,10 @@ class SearchChoices<T> extends FormField<T> {
   /// [restorationId] as in FormField.
   final String? restorationId;
 
+  /// [giveMeThePop] [Function] to pass the pop function so that the menu or
+  /// dialog can be closed from outside the widget.
+  final Function(Function pop)? giveMeThePop;
+
   /// Search choices Widget with a single choice that opens a dialog or a menu
   /// to let the user do the selection conveniently with a search.
   ///
@@ -579,6 +583,8 @@ class SearchChoices<T> extends FormField<T> {
   /// displayed below selected value when not valid and null when valid.
   /// * [autovalidateMode] as in FormField.
   /// * [restorationId] as in FormField.
+  /// * [giveMeThePop] [Function] to pass the pop function so that the menu or
+  /// dialog can be closed from outside the widget.
   factory SearchChoices.single({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -660,6 +666,7 @@ class SearchChoices<T> extends FormField<T> {
     FormFieldSetter<T>? onSaved,
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
+    Function(Function pop)? giveMeThePop,
   }) {
     return (SearchChoices._(
       key: key,
@@ -718,6 +725,7 @@ class SearchChoices<T> extends FormField<T> {
       onSaved: onSaved,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
+      giveMeThePop: giveMeThePop,
     ));
   }
 
@@ -931,6 +939,7 @@ class SearchChoices<T> extends FormField<T> {
     String? Function(List<dynamic>)? listValidator,
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
+    Function(Function pop)? giveMeThePop,
   }) {
     return (SearchChoices._(
       key: key,
@@ -991,6 +1000,7 @@ class SearchChoices<T> extends FormField<T> {
       listValidator: listValidator,
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
+      giveMeThePop: giveMeThePop,
     ));
   }
 
@@ -1058,6 +1068,7 @@ class SearchChoices<T> extends FormField<T> {
     this.listValidator,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.restorationId,
+    this.giveMeThePop,
   })  : assert(!multipleSelection || doneButton != null),
         assert(menuConstraints == null || !dialogBox),
         assert(itemsPerPage == null || currentPage != null,
@@ -1134,6 +1145,9 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
 
   giveMeThePop(Function pop) {
     this.pop = pop;
+    if (widget.giveMeThePop != null) {
+      widget.giveMeThePop!(pop);
+    }
   }
 
   TextStyle get _textStyle =>
