@@ -15,7 +15,7 @@ const RESOURCES = {
 "flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
 "index.html": "1fb153674cf46987bf780e4dafeb7e5a",
 "/": "1fb153674cf46987bf780e4dafeb7e5a",
-"main.dart.js": "86f6c077a11783dd88e717642b699508",
+"main.dart.js": "0be90dde7ab45a040f6600c27263b7dd",
 "assets/NOTICES": "117be172edcd01aff3afd7226a688f0f",
 "assets/shaders/ink_sparkle.frag": "7ff7388e83c41d3004d4335a0e6dca0c",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
