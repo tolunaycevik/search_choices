@@ -1151,11 +1151,13 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   }
 
   void sendSelection(dynamic selection, [BuildContext? onChangeContext]) {
-    try {
-      didChange(selection);
-    } catch (e, st) {
-      debugPrint(
-          "Warning: didChange call threw an error: ${e.toString()} ${st.toString()} You may want to reconsider the declared types otherwise the form validation may not consider this field properly.");
+    if (!(selection is List<int>)) {
+      try {
+        didChange(selection);
+      } catch (e, st) {
+        debugPrint(
+            "Warning: didChange call threw an error: ${e.toString()} ${st.toString()} You may want to reconsider the declared types otherwise the form validation may not consider this field properly.");
+      }
     }
     try {
       widget.onChanged!(selection);
@@ -1284,7 +1286,8 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
     });
   }
 
-  Future<void> showDialogOrMenu(String searchTerms, {bool closeMenu = false}) async {
+  Future<void> showDialogOrMenu(String searchTerms,
+      {bool closeMenu = false}) async {
     if (widget.dialogBox) {
       if (widget.showDialogFn != null) {
         await widget.showDialogFn!(
@@ -1553,5 +1556,3 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
     setState(() {});
   }
 }
-
-
