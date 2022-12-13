@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:flutster/flutster.dart';
 
 import 'package:search_choices/search_choices.dart';
+import 'package:search_choices_example/custom_object_sample.dart';
 
 class ExampleNumber {
   int number;
@@ -76,6 +77,7 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   bool asTabs = false;
+  bool customObjects = false;
   String? selectedValueSingleDialog;
   String? selectedValueSingleDoneButtonDialog;
   String? selectedValueSingleMenu;
@@ -205,6 +207,25 @@ class MyAppState extends State<MyApp> {
               onChanged: (value) {
                 setState(() {
                   asTabs = value;
+                });
+              },
+            ),
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          Text(
+            "Objects:",
+          ),
+          SizedBox(
+            height: 30,
+            child: Switch(
+              activeColor: Colors.white,
+              value: customObjects,
+              onChanged: (value) {
+                setState(() {
+                  customObjects = value;
                 });
               },
             ),
@@ -2385,7 +2406,9 @@ class MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: MyApp.navKey,
-      home: asTabs
+      home: customObjects ? 
+      CustomObjectSample() :
+      asTabs
           ? DefaultTabController(
               length: widgets.length,
               child: FlutsterScaffold(

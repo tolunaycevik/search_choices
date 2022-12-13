@@ -194,7 +194,7 @@ class DropdownDialog<T> extends StatefulWidget {
 
 class _DropdownDialogState<T> extends State<DropdownDialog> {
   TextEditingController txtSearch = TextEditingController();
-  TextStyle defaultButtonStyle = TextStyle(
+  final TextStyle defaultButtonStyle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
