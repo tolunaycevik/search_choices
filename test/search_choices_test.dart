@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:search_choices/dropdown_dialog.dart';
 import 'package:search_choices/search_choices.dart';
 
 class ExampleNumber {
