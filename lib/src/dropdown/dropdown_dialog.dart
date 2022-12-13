@@ -1,7 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:search_choices/helper_classes.dart';
-import 'package:search_choices/prepare_widget.dart';
 import 'package:search_choices/search_choices.dart';
 
 /// Class mainly used internally to display the available choices. Cannot be

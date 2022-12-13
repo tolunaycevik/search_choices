@@ -1,4 +1,4 @@
-import 'package:search_choices/helper_classes.dart';
+import 'package:search_choices/search_choices.dart';
 import 'package:flutter/material.dart';
 
 /// Function mainly called internally to transform an [object] (either a Widget,
