@@ -1151,7 +1151,9 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   }
 
   void sendSelection(dynamic selection, [BuildContext? onChangeContext]) {
-    if (!(selection is List<int>)) {
+    if (!widget.multipleSelection) {
+      // We should try to make this work in multiple selection as well
+      // see https://github.com/lcuis/search_choices/issues/97
       try {
         didChange(selection);
       } catch (e, st) {

@@ -77,7 +77,6 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   bool asTabs = false;
-  bool customObjects = false;
   String? selectedValueSingleDialog;
   String? selectedValueSingleDoneButtonDialog;
   String? selectedValueSingleMenu;
@@ -207,25 +206,6 @@ class MyAppState extends State<MyApp> {
               onChanged: (value) {
                 setState(() {
                   asTabs = value;
-                });
-              },
-            ),
-          ),
-        ],
-      ),
-      Column(
-        children: [
-          Text(
-            "Objects:",
-          ),
-          SizedBox(
-            height: 30,
-            child: Switch(
-              activeColor: Colors.white,
-              value: customObjects,
-              onChanged: (value) {
-                setState(() {
-                  customObjects = value;
                 });
               },
             ),
@@ -2360,6 +2340,7 @@ class MyAppState extends State<MyApp> {
           ],
         ),
       ),
+      "Custom objects single and multiple dialogs": CustomObjectSample(),
     };
 
     List<Widget> exampleWidgets = [];
@@ -2406,9 +2387,7 @@ class MyAppState extends State<MyApp> {
       ),
       debugShowCheckedModeBanner: false,
       navigatorKey: MyApp.navKey,
-      home: customObjects ? 
-      CustomObjectSample() :
-      asTabs
+      home: asTabs
           ? DefaultTabController(
               length: widgets.length,
               child: FlutsterScaffold(

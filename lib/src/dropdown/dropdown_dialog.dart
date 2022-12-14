@@ -656,7 +656,6 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
 
   /// Widget displayed above the search bar.
   Widget titleBar() {
-
     Widget? doneButtonWidget =
         widget.multipleSelection || widget.doneButton != null
             ? prepareWidget(widget.doneButton,
@@ -711,7 +710,10 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
                   Column(
                     children: <Widget>[
                       doneButtonWidget ?? SizedBox.shrink(),
-                      TitleValidatorOutputWidget(dialogBox: widget.dialogBox,rightToLeft: widget.rightToLeft,validResult: validResult),
+                      TitleValidatorOutputWidget(
+                          dialogBox: widget.dialogBox,
+                          rightToLeft: widget.rightToLeft,
+                          validResult: validResult),
                     ],
                   ),
                 ]),
@@ -720,7 +722,10 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
             child: Column(
               children: <Widget>[
                 doneButtonWidget ?? SizedBox.shrink(),
-                TitleValidatorOutputWidget(dialogBox: widget.dialogBox,rightToLeft: widget.rightToLeft,validResult: validResult),
+                TitleValidatorOutputWidget(
+                    dialogBox: widget.dialogBox,
+                    rightToLeft: widget.rightToLeft,
+                    validResult: validResult),
               ],
             ),
           );

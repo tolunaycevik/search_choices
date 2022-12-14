@@ -74,141 +74,127 @@ class _CustomObjectSampleState extends State<CustomObjectSample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Custom object Sample'),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            widgetToExample(
-              SearchChoices.single(
-                items: _customDroplist,
-                value: _selectedCustom,
-                hint: "Select one",
-                searchHint: "Select one",
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCustom = value;
-                  });
-                },
-                searchFn:
-                    (String keyword, List<DropdownMenuItem<Custom>> items) {
-                  List<int> _ret = [];
-                  if (items.length > 0 && keyword.isNotEmpty) {
-                    int i = 0;
-                    items.forEach((item) {
-                      if (!_ret.contains(i) &&
-                          (item.value!.name
-                              .toString()
-                              .toLowerCase()
-                              .contains(keyword.toLowerCase()))) {
-                        _ret.add(i);
-                      }
-                      i++;
-                    });
+    return Column(
+      children: [
+        widgetToExample(
+          SearchChoices.single(
+            items: _customDroplist,
+            value: _selectedCustom,
+            hint: "Select one",
+            searchHint: "Select one",
+            onChanged: (value) {
+              setState(() {
+                _selectedCustom = value;
+              });
+            },
+            searchFn: (String keyword, List<DropdownMenuItem<Custom>> items) {
+              List<int> _ret = [];
+              if (items.length > 0 && keyword.isNotEmpty) {
+                int i = 0;
+                items.forEach((item) {
+                  if (!_ret.contains(i) &&
+                      (item.value!.name
+                          .toString()
+                          .toLowerCase()
+                          .contains(keyword.toLowerCase()))) {
+                    _ret.add(i);
                   }
-                  if (keyword.isEmpty) {
-                    _ret = Iterable<int>.generate(items.length).toList();
-                  }
-                  return (_ret);
-                },
-                isExpanded: true,
-                dropDownDialogPadding: const EdgeInsets.symmetric(
-                  vertical: 80,
-                  horizontal: 80,
-                ),
-              ),
-              'Custom single Dialog',
-              1,
+                  i++;
+                });
+              }
+              if (keyword.isEmpty) {
+                _ret = Iterable<int>.generate(items.length).toList();
+              }
+              return (_ret);
+            },
+            isExpanded: true,
+            dropDownDialogPadding: const EdgeInsets.symmetric(
+              vertical: 80,
+              horizontal: 80,
             ),
-            widgetToExample(
-              SearchChoices.multiple(
-                items: _customDroplist,
-                selectedItems: selectedItemsMultiCustomDisplayDialog,
-                hint: "Select multiple",
-                searchHint: "Select multiple",
-                onChanged: (value) {
-                  setState(() {
-                    _selectedCustom = value;
-                  });
-                },
-                searchFn:
-                    (String keyword, List<DropdownMenuItem<Custom>> items) {
-                  List<int> _ret = [];
-                  if (items.length > 0 && keyword.isNotEmpty) {
-                    int i = 0;
-                    items.forEach((item) {
-                      if (!_ret.contains(i) &&
-                          (item.value!.name
-                              .toString()
-                              .toLowerCase()
-                              .contains(keyword.toLowerCase()))) {
-                        _ret.add(i);
-                      }
-                      i++;
-                    });
-                  }
-                  if (keyword.isEmpty) {
-                    _ret = Iterable<int>.generate(items.length).toList();
-                  }
-                  return (_ret);
-                },
-                isExpanded: true,
-                dropDownDialogPadding: const EdgeInsets.symmetric(
-                  vertical: 80,
-                  horizontal: 80,
-                ),
-                selectedValueWidgetFn: (Custom item) {
-                  return Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(
-                        color: Colors.black,
-                        width: 0.5,
-                      ),
-                    ),
-                    margin: const EdgeInsets.all(12),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Text(item.name),
-                    ),
-                  );
-                },
-                selectedAggregateWidgetFn: (List<Widget> list) {
-                  return Wrap(children: list);
-                },
-                displayItem: (DropdownMenuItem<Custom> item, bool selected,
-                    Function updateParent) {
-                  return ListTile(
-                    leading: selected
-                        ? Icon(
-                            Icons.check,
-                            color: Colors.green,
-                          )
-                        : const Icon(
-                            Icons.check_box_outline_blank,
-                            color: Colors.grey,
-                          ),
-                    title: item,
-                    trailing: null,
-                    horizontalTitleGap: 0,
-                    dense: true,
-                    visualDensity: VisualDensity.compact,
-                  );
-                },
-              ),
-              'Custom Multi Dialog',
-              2,
-            ),
-            const Center(
-              child: SizedBox(
-                height: 500,
-              ),
-            ),
-          ],
+          ),
+          'Custom single Dialog',
+          1,
         ),
-      ),
+        widgetToExample(
+          SearchChoices.multiple(
+            items: _customDroplist,
+            selectedItems: selectedItemsMultiCustomDisplayDialog,
+            hint: "Select multiple",
+            searchHint: "Select multiple",
+            onChanged: (value) {
+              setState(() {
+                _selectedCustom = value;
+              });
+            },
+            searchFn: (String keyword, List<DropdownMenuItem<Custom>> items) {
+              List<int> _ret = [];
+              if (items.length > 0 && keyword.isNotEmpty) {
+                int i = 0;
+                items.forEach((item) {
+                  if (!_ret.contains(i) &&
+                      (item.value!.name
+                          .toString()
+                          .toLowerCase()
+                          .contains(keyword.toLowerCase()))) {
+                    _ret.add(i);
+                  }
+                  i++;
+                });
+              }
+              if (keyword.isEmpty) {
+                _ret = Iterable<int>.generate(items.length).toList();
+              }
+              return (_ret);
+            },
+            isExpanded: true,
+            dropDownDialogPadding: const EdgeInsets.symmetric(
+              vertical: 80,
+              horizontal: 80,
+            ),
+            selectedValueWidgetFn: (Custom item) {
+              return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  side: const BorderSide(
+                    color: Colors.black,
+                    width: 0.5,
+                  ),
+                ),
+                margin: const EdgeInsets.all(12),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(item.name),
+                ),
+              );
+            },
+            selectedAggregateWidgetFn: (List<Widget> list) {
+              return Wrap(children: list);
+            },
+            displayItem: (DropdownMenuItem<Custom> item, bool selected,
+                Function updateParent) {
+              return ListTile(
+                leading: selected
+                    ? Icon(
+                        Icons.check,
+                        color: Colors.green,
+                      )
+                    : const Icon(
+                        Icons.check_box_outline_blank,
+                        color: Colors.grey,
+                      ),
+                title: item,
+                trailing: null,
+                horizontalTitleGap: 0,
+                dense: true,
+                visualDensity: VisualDensity.compact,
+              );
+            },
+          ),
+          'Custom Multi Dialog',
+          2,
+        ),
+      ],
     );
   }
 }

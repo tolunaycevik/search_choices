@@ -1,3 +1,8 @@
+## 2.2.0
+
+* Avoided a warning when validating a form with multiple objects. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/issues/97
+* Separated big classes. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/issues/100
+
 ## 2.1.8
 
 * Added parameter giveMeThePop to allow closing the dialog or menu from outside the widget. Thanks @krButani https://github.com/lcuis/search_choices/issues/94
