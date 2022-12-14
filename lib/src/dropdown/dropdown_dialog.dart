@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:search_choices/helper_classes.dart';
-import 'package:search_choices/prepare_widget.dart';
 import 'package:search_choices/search_choices.dart';
+import 'package:search_choices/src/dropdown/title_bar.dart';
 
 /// Class mainly used internally to display the available choices. Cannot be
 /// made private because of automated testing.
@@ -195,7 +194,7 @@ class DropdownDialog<T> extends StatefulWidget {
 
 class _DropdownDialogState<T> extends State<DropdownDialog> {
   TextEditingController txtSearch = TextEditingController();
-  TextStyle defaultButtonStyle = TextStyle(
+  final TextStyle defaultButtonStyle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
@@ -657,16 +656,6 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
 
   /// Widget displayed above the search bar.
   Widget titleBar() {
-    var validatorOutput = validResult;
-
-    Widget validatorOutputWidget = validatorOutput == null || !widget.dialogBox
-        ? SizedBox.shrink()
-        : Text(
-            validatorOutput,
-            textDirection:
-                widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
-            style: TextStyle(color: Colors.red, fontSize: 13),
-          );
 
     Widget? doneButtonWidget =
         widget.multipleSelection || widget.doneButton != null
@@ -722,7 +711,7 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
                   Column(
                     children: <Widget>[
                       doneButtonWidget ?? SizedBox.shrink(),
-                      validatorOutputWidget
+                      TitleValidatorOutputWidget(dialogBox: widget.dialogBox,rightToLeft: widget.rightToLeft,validResult: validResult),
                     ],
                   ),
                 ]),
@@ -731,7 +720,7 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
             child: Column(
               children: <Widget>[
                 doneButtonWidget ?? SizedBox.shrink(),
-                validatorOutputWidget
+                TitleValidatorOutputWidget(dialogBox: widget.dialogBox,rightToLeft: widget.rightToLeft,validResult: validResult),
               ],
             ),
           );
