@@ -1151,17 +1151,19 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   }
 
   void sendSelection(dynamic selection, [BuildContext? onChangeContext]) {
-    try {
-      didChange(selection);
-    } catch (e, st) {
-      if (!widget.multipleSelection) {
-        debugPrint(
-            "Warning: didChange call threw an error: ${e.toString()} ${st.toString()} You may want to reconsider the declared types otherwise the form validation may not consider this field properly.");
-      } else {
-        // We should try to make this work in multiple selection as well
-        // see https://github.com/lcuis/search_choices/issues/97
-        debugPrint(
-            "Warning: SearchChoices multipleSelection doesn't fully support Form didChange call.");
+    if (widget.validator != null || widget.listValidator != null) {
+      try {
+        didChange(selection);
+      } catch (e, st) {
+        if (!widget.multipleSelection) {
+          debugPrint(
+              "Warning: didChange call threw an error: ${e.toString()} ${st.toString()} You may want to reconsider the declared types otherwise the form validation may not consider this field properly.");
+        } else {
+          // We should try to make this work in multiple selection as well
+          // see https://github.com/lcuis/search_choices/issues/97
+          debugPrint(
+              "Warning: SearchChoices multipleSelection doesn't fully support Form didChange call.");
+        }
       }
     }
     try {
