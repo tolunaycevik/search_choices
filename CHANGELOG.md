@@ -1,3 +1,7 @@
+## 2.2.1
+
+* If there is no validator nor any listValidator, form validation is not triggered. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/pull/102
+
 ## 2.2.0
 
 * Avoided a warning when validating a form with multiple objects. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/issues/97
