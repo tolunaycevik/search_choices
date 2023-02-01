@@ -1,3 +1,9 @@
+## 2.2.2
+
+* subtitle1 is deprecated. Use titleMedium instead.
+* compileSdkVersion 33
+* started with task 2 of https://github.com/lcuis/search_choices/issues/100
+
 ## 2.2.1
 
 * If there is no validator nor any listValidator, form validation is not triggered. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/pull/102

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
 import 'package:search_choices/src/dropdown/title_bar.dart';
 
+import 'future_search_filter_options_widget.dart';
+import 'future_search_order_options_widget.dart';
+
 /// Class mainly used internally to display the available choices. Cannot be
 /// made private because of automated testing.
 class DropdownDialog<T> extends StatefulWidget {
@@ -204,11 +207,12 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
 
   bool futureSearch = false;
 
-  String? orderBy;
+  PointerThisPlease<String?> orderBy = PointerThisPlease(null);
 
-  bool? orderAsc;
+  PointerThisPlease<bool?> orderAsc = PointerThisPlease(null);
 
-  List<Tuple2<String, String>>? filters;
+  PointerThisPlease<List<Tuple2<String, String>>?> filters =
+      PointerThisPlease(null);
 
   Future<Tuple2<List<DropdownMenuItem>, int>>? latestFutureResult;
   List<dynamic>? latestFutureSearchArgs;
@@ -232,299 +236,6 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
         : widget.selectedItems?.isNotEmpty ?? false
             ? widget.items![widget.selectedItems?.first ?? 0].value
             : null);
-  }
-
-  Widget get futureSearchOrderOptionsWidget {
-    if (widget.futureSearchOrderOptions == null ||
-        widget.futureSearchOrderOptions!.isEmpty) {
-      return (SizedBox.shrink());
-    }
-    Widget icon = Icon(
-      Icons.sort,
-      size: 17,
-    );
-    void Function() onPressed = () {
-      showMenu(
-          context: context,
-          position: RelativeRect.fromLTRB(100, 30, 20, 100),
-          items: widget.futureSearchOrderOptions!
-              .map<String, PopupMenuItem>((k, v) {
-                return (MapEntry(
-                    k,
-                    PopupMenuItem(
-                      child: SizedBox(
-                        height: 30,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            widget.currentPage?.value = 1;
-                            if (k.isEmpty) {
-                              orderAsc = true;
-                              orderBy = null;
-                            } else {
-                              if (orderBy == k) {
-                                orderAsc = (!(orderAsc ?? false));
-                              } else {
-                                orderAsc = widget.futureSearchOrderOptions![k]
-                                        ?["asc"] ??
-                                    true;
-                              }
-                              setState(() {
-                                orderBy = k;
-                              });
-                            }
-                            Navigator.pop(context);
-                          },
-                          child: Row(
-                            children: [
-                              widget.rightToLeft && k == orderBy
-                                  ? orderArrowWidget
-                                  : SizedBox.shrink(),
-                              prepareWidget(
-                                    v["icon"],
-                                    parameter: orderAsc,
-                                    updateParent: updateParentWithOptionalPop,
-                                    context: context,
-                                  ) ??
-                                  Text(k),
-                              !widget.rightToLeft && k == orderBy
-                                  ? orderArrowWidget
-                                  : SizedBox.shrink()
-                            ],
-                          ),
-                        ),
-                      ),
-                      value: k,
-                    )));
-              })
-              .values
-              .toList()
-            ..insert(
-                0,
-                PopupMenuItem(
-                  child: SizedBox(
-                    height: 30,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                          setState(() {
-                            widget.currentPage?.value = 1;
-                            orderBy = null;
-                            orderAsc = null;
-                          });
-                        },
-                        child: Icon(
-                          Icons.clear,
-                          size: 17,
-                        )),
-                  ),
-                )));
-    };
-
-    return SizedBox(
-      height: 25,
-      width: orderBy == null ? 48 : 70,
-      child: (orderBy == null
-          ? ElevatedButton(
-              child: icon,
-              onPressed: onPressed,
-            )
-          : ElevatedButton.icon(
-              label: orderArrowWidget,
-              icon: icon,
-              onPressed: onPressed,
-            )),
-    );
-  }
-
-  Widget get futureSearchFilterOptionsWidget {
-    if (widget.futureSearchFilterOptions == null ||
-        widget.futureSearchFilterOptions!.isEmpty) {
-      return (SizedBox.shrink());
-    }
-    return SizedBox(
-      height: 25,
-      width: 48,
-      child: (ElevatedButton(
-        child: Icon(
-          filters == null || filters!.isEmpty
-              ? Icons.filter
-              : filters!.length == 1
-                  ? Icons.filter_1
-                  : filters!.length == 2
-                      ? Icons.filter_2
-                      : filters!.length == 3
-                          ? Icons.filter_3
-                          : filters!.length == 4
-                              ? Icons.filter_4
-                              : filters!.length == 5
-                                  ? Icons.filter_5
-                                  : filters!.length == 6
-                                      ? Icons.filter_6
-                                      : filters!.length == 7
-                                          ? Icons.filter_7
-                                          : filters!.length == 8
-                                              ? Icons.filter_8
-                                              : filters!.length == 9
-                                                  ? Icons.filter_9
-                                                  : Icons.filter_9_plus_sharp,
-          size: 17,
-        ),
-        onPressed: () {
-          showMenu(
-              context: context,
-              position: RelativeRect.fromLTRB(100, 30, 20, 100),
-              items: widget.futureSearchFilterOptions!
-                  .map<String, PopupMenuItem>((k, v) {
-                    bool exclusive = v.containsKey("exclusive")
-                        ? v["exclusive"] as bool
-                        : false;
-                    return (MapEntry(
-                        k,
-                        PopupMenuItem(
-                            child: Column(
-                          children: ((v["values"] ?? []) as List<dynamic>)
-                              .map<Widget>((
-                            value,
-                          ) {
-                            Widget inner;
-                            String fk;
-                            if (value is Map<String, dynamic>) {
-                              assert((value).length == 1,
-                                  "filter object not well built");
-                              fk = (value).keys.first;
-                              dynamic fv = (value).values.first ?? null;
-
-                              inner = (prepareWidget(
-                                    fv ?? fk,
-                                    parameter: filters,
-                                    updateParent: updateParentWithOptionalPop,
-                                    context: context,
-                                  ) ??
-                                  fk) as Widget;
-                            } else {
-                              fk = value;
-                              inner = prepareWidget(
-                                    value,
-                                    parameter: filters,
-                                    updateParent: updateParentWithOptionalPop,
-                                    context: context,
-                                  ) ??
-                                  value;
-                            }
-                            bool isSelected = false;
-                            if (filters?.any((Tuple2<String, String> element) {
-                                  return (element.item1 == k &&
-                                      element.item2 == fk);
-                                }) ??
-                                false) {
-                              isSelected = true;
-                            }
-                            return (Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: (SizedBox(
-                                height: 30,
-                                child: (ElevatedButton(
-                                  child: Row(
-                                    children: [
-                                      widget.rightToLeft && isSelected
-                                          ? Icon(Icons.check)
-                                          : SizedBox.shrink(),
-                                      inner,
-                                      !widget.rightToLeft && isSelected
-                                          ? Icon(Icons.check)
-                                          : SizedBox.shrink()
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    widget.currentPage?.value = 1;
-                                    if (filters == null) {
-                                      filters = [];
-                                    }
-                                    bool isSelected = false;
-                                    if (filters?.any(
-                                            (Tuple2<String, String> element) {
-                                          return (element.item1 == k &&
-                                              element.item2 == fk);
-                                        }) ??
-                                        false) {
-                                      isSelected = true;
-                                    }
-                                    if (isSelected) {
-                                      filters!.removeWhere((element) =>
-                                          element.item1 == k &&
-                                          element.item2 == fk);
-                                    } else {
-                                      if (exclusive) {
-                                        filters!.removeWhere(
-                                            (element) => element.item1 == k);
-                                      }
-                                      filters!.add(Tuple2(k, fk));
-                                    }
-                                    if (widget.dialogBox) {
-                                      setState(() {});
-                                    }
-                                    Navigator.pop(context);
-                                    if (!widget.dialogBox) {
-                                      setState(() {});
-                                    }
-                                  },
-                                )),
-                              )),
-                            ));
-                          }).toList()
-                            ..insert(
-                              0,
-                              PopupMenuItem(
-                                child: SizedBox(
-                                  height: 30,
-                                  child: prepareWidget(
-                                        v["icon"] ?? k,
-                                        parameter: filters,
-                                        updateParent:
-                                            updateParentWithOptionalPop,
-                                        context: context,
-                                      ) ??
-                                      Text(k),
-                                ),
-                              ),
-                            ),
-                        ))));
-                  })
-                  .values
-                  .toList()
-                ..insert(
-                    0,
-                    PopupMenuItem(
-                      child: SizedBox(
-                        height: 30,
-                        child: ElevatedButton(
-                            onPressed: () {
-                              widget.currentPage?.value = 1;
-                              filters?.clear();
-                              Navigator.pop(context);
-                              if (!widget.dialogBox) {
-                                setState(() {});
-                              }
-                            },
-                            child: Icon(
-                              Icons.clear,
-                              size: 17,
-                            )),
-                      ),
-                    )));
-        },
-      )),
-    );
-  }
-
-  Widget get orderArrowWidget {
-    if (orderBy == null) {
-      return (SizedBox.shrink());
-    }
-    return (Icon(
-      orderAsc ?? true ? Icons.arrow_upward : Icons.arrow_downward,
-      size: 17,
-    ));
   }
 
   void _updateShownIndexes(
@@ -683,7 +394,15 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
       children: <Widget>[
         widget.futureSearchOrderOptions == null
             ? SizedBox.shrink()
-            : futureSearchOrderOptionsWidget,
+            : FutureSearchOrderOptionsWidget(
+                futureSearchOrderOptions: widget.futureSearchOrderOptions,
+                currentPage: widget.currentPage,
+                orderAsc: orderAsc,
+                orderBy: orderBy,
+                setState: setState,
+                rightToLeft: widget.rightToLeft,
+                updateParentWithOptionalPop: updateParentWithOptionalPop,
+              ),
         widget.futureSearchOrderOptions != null &&
                 widget.futureSearchFilterOptions != null
             ? SizedBox(
@@ -692,7 +411,15 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
             : SizedBox.shrink(),
         widget.futureSearchFilterOptions == null
             ? SizedBox.shrink()
-            : futureSearchFilterOptionsWidget,
+            : FutureSearchFilterOptionsWidget(
+                futureSearchFilterOptions: widget.futureSearchFilterOptions,
+                filters: filters,
+                updateParentWithOptionalPop: updateParentWithOptionalPop,
+                rightToLeft: widget.rightToLeft,
+                currentPage: widget.currentPage,
+                dialogBox: widget.dialogBox,
+                setState: setState,
+              ),
       ],
     );
     return (widget.hint != null ||
@@ -777,10 +504,10 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
     if (!force &&
         latestFutureSearchArgs != null &&
         (latestFutureSearchArgs![0] == (keyword ?? "") &&
-            latestFutureSearchArgs![1] == (orderBy ?? "") &&
-            latestFutureSearchArgs![2] == (orderAsc ?? true) &&
+            latestFutureSearchArgs![1] == (orderBy.value ?? "") &&
+            latestFutureSearchArgs![2] == (orderAsc.value ?? true) &&
             latestFutureSearchArgs![4] == (widget.currentPage?.value ?? 1))) {
-      if ((filters == null || filters?.length == 0) &&
+      if ((filters.value == null || filters.value?.length == 0) &&
           (latestFutureSearchArgs![3] == null ||
               (latestFutureSearchArgs![3] as List<Tuple2<String, String>>)
                       .length ==
@@ -797,7 +524,7 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
                   (e as Tuple2<String, String>).item1, (e).item2))
               .toList();
         }
-        filters?.forEach((filter) {
+        filters.value?.forEach((filter) {
           if (!oldFilters.any((element) => (element.item1 == filter.item1 &&
               element.item2 == filter.item2))) {
             filtersMatch = false;
@@ -805,8 +532,9 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
         });
         if (filtersMatch) {
           oldFilters.forEach((filter) {
-            if (!filters!.any((element) => (element.item1 == filter.item1 &&
-                element.item2 == filter.item2))) {
+            if (!filters.value!.any((element) =>
+                (element.item1 == filter.item1 &&
+                    element.item2 == filter.item2))) {
               filtersMatch = false;
             }
           });
@@ -818,9 +546,9 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
     }
     latestFutureSearchArgs = [
       String.fromCharCodes(keyword?.runes ?? []),
-      String.fromCharCodes(orderBy?.runes ?? []),
-      orderAsc ?? true ? true : false,
-      filters
+      String.fromCharCodes(orderBy.value?.runes ?? []),
+      orderAsc.value ?? true ? true : false,
+      filters.value
           ?.map((e) => Tuple2<String, String>(
               String.fromCharCodes(e.item1.runes),
               String.fromCharCodes(e.item2.runes)))
@@ -829,9 +557,9 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
     ];
     latestFutureResult = widget.futureSearchFn!(
       keyword,
-      orderBy,
-      orderAsc,
-      filters,
+      orderBy.value,
+      orderAsc.value,
+      filters.value,
       widget.currentPage?.value ?? 1,
     );
     return (latestFutureResult);

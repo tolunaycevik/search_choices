@@ -1004,10 +1004,10 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
   TextStyle get _textStyle =>
       widget.style ??
       (_enabled && !(widget.readOnly)
-          ? Theme.of(context).textTheme.subtitle1
+          ? Theme.of(context).textTheme.titleMedium
           : Theme.of(context)
               .textTheme
-              .subtitle1!
+              .titleMedium!
               .copyWith(color: _disabledIconColor)) ??
       TextStyle();
   bool get _enabled => widget.isEnabled;
