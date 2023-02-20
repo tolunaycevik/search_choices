@@ -166,6 +166,15 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
     Function(Function pop)? giveMeThePop,
+    Widget Function({
+      required bool filter,
+      required BuildContext context,
+      required Function onPressed,
+      int? nbFilters,
+      bool? orderAsc,
+      String? orderBy,
+    })?
+        buildFutureFilterOrOrderButton,
 })
 ```
 
@@ -225,6 +234,11 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
 * autovalidateMode as in FormField.
 * restorationId as in FormField.
 * giveMeThePop Function to pass the pop function so that the menu or dialog can be closed from outside the widget.
+* buildFutureFilterOrOrderButton Function to customize the order and filter button in case of future search. Where:
+** filter is true if building filter button and false while building order button.
+** nbFilters is set to the number of filters applied if any.
+** orderAsc true when the applied order is ascending.
+** orderBy is the string by which the search is sorted.
 
 
 #### Multiple choice constructor
@@ -313,6 +327,15 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
     Function(Function pop)? giveMeThePop,
+    Widget Function({
+      required bool filter,
+      required BuildContext context,
+      required Function onPressed,
+      int? nbFilters,
+      bool? orderAsc,
+      String? orderBy,
+    })?
+        buildFutureFilterOrOrderButton,
   })
 ```
 
@@ -373,6 +396,11 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
 * autovalidateMode as in FormField.
 * restorationId as in FormField.
 * giveMeThePop Function to pass the pop function so that the menu or dialog can be closed from outside the widget.
+* buildFutureFilterOrOrderButton Function to customize the order and filter button in case of future search. Where:
+** filter is true if building filter button and false while building order button.
+** nbFilters is set to the number of filters applied if any.
+** orderAsc true when the applied order is ascending.
+** orderBy is the string by which the search is sorted.
 
 #### Example app usage
 
@@ -2629,6 +2657,83 @@ SearchChoices.single(
               );
             },
             searchDelay: 500,
+            // Here, buildFutureFilterOrOrderButton doesn't change anything.
+            // This is a way to make sure this parameter still works with automated
+            // integration testing.
+            buildFutureFilterOrOrderButton: ({
+              required BuildContext context,
+              required bool filter,
+              required Function onPressed,
+              int? nbFilters,
+              bool? orderAsc,
+              String? orderBy,
+            }) {
+              if (filter) {
+                return (SizedBox(
+                  height: 25,
+                  width: 48,
+                  child: (ElevatedButton(
+                    child: Icon(
+                      nbFilters == null || nbFilters == 0
+                          ? Icons.filter
+                          : nbFilters == 1
+                              ? Icons.filter_1
+                              : nbFilters == 2
+                                  ? Icons.filter_2
+                                  : nbFilters == 3
+                                      ? Icons.filter_3
+                                      : nbFilters == 4
+                                          ? Icons.filter_4
+                                          : nbFilters == 5
+                                              ? Icons.filter_5
+                                              : nbFilters == 6
+                                                  ? Icons.filter_6
+                                                  : nbFilters == 7
+                                                      ? Icons.filter_7
+                                                      : nbFilters == 8
+                                                          ? Icons.filter_8
+                                                          : nbFilters == 9
+                                                              ? Icons.filter_9
+                                                              : Icons
+                                                                  .filter_9_plus_sharp,
+                      size: 17,
+                    ),
+                    onPressed: () {
+                      onPressed();
+                    },
+                  )),
+                ));
+              }
+
+              Widget icon = Icon(
+                Icons.sort,
+                size: 17,
+              );
+
+              return SizedBox(
+                height: 25,
+                width: orderBy == null ? 48 : 70,
+                child: (orderBy == null
+                    ? ElevatedButton(
+                        child: icon,
+                        onPressed: () {
+                          onPressed();
+                        },
+                      )
+                    : ElevatedButton.icon(
+                        label: Icon(
+                          orderAsc ?? true
+                              ? Icons.arrow_upward
+                              : Icons.arrow_downward,
+                          size: 17,
+                        ),
+                        icon: icon,
+                        onPressed: () {
+                          onPressed();
+                        },
+                      )),
+              );
+            },
           )
 ```
 ### Single dialog custom field presentation

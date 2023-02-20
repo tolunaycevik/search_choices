@@ -1,10 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:search_choices/search_choices.dart';
-import 'package:search_choices/src/dropdown/title_bar.dart';
-
-import 'future_search_filter_options_widget.dart';
-import 'future_search_order_options_widget.dart';
+import 'title_bar.dart';
 
 /// Class mainly used internally to display the available choices. Cannot be
 /// made private because of automated testing.
@@ -148,6 +145,16 @@ class DropdownDialog<T> extends StatefulWidget {
   /// See SearchChoices class.
   final String? Function(List<T?>)? listValidator;
 
+  /// See SearchChoices class.
+  final Widget Function({
+    required bool filter,
+    required BuildContext context,
+    required Function onPressed,
+    int? nbFilters,
+    bool? orderAsc,
+    String? orderBy,
+  })? buildFutureFilterOrOrderButton;
+
   DropdownDialog({
     Key? key,
     this.items,
@@ -190,6 +197,7 @@ class DropdownDialog<T> extends StatefulWidget {
     required this.giveMeThePop,
     this.clearSearchIcon,
     this.listValidator,
+    this.buildFutureFilterOrOrderButton,
   }) : super(key: key);
 
   _DropdownDialogState<T> createState() => _DropdownDialogState<T>();
@@ -316,7 +324,26 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
   Widget build(BuildContext dropdownDialogContext) {
     if (widget.buildDropDownDialog != null) {
       return (wrapMenuIfDialogBox(widget.buildDropDownDialog!(
-        titleBar(),
+        TitleBar(
+          multipleSelection: widget.multipleSelection,
+          buildFutureFilterOrOrderButton: widget.buildFutureFilterOrOrderButton,
+          setState: setState,
+          currentPage: widget.currentPage,
+          dialogBox: widget.dialogBox,
+          doneButton: widget.doneButton,
+          filters: filters,
+          futureSearchFilterOptions: widget.futureSearchFilterOptions,
+          futureSearchOrderOptions: widget.futureSearchOrderOptions,
+          hint: widget.hint,
+          orderAsc: orderAsc,
+          orderBy: orderBy,
+          pop: pop,
+          rightToLeft: widget.rightToLeft,
+          selectedResult: selectedResult,
+          updateParentWithOptionalPop: updateParentWithOptionalPop,
+          valid: valid,
+          validResult: validResult,
+        ),
         searchBar(),
         listWithPagination(),
         closeButtonWrapper(),
@@ -340,7 +367,27 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              titleBar(),
+              TitleBar(
+                multipleSelection: widget.multipleSelection,
+                buildFutureFilterOrOrderButton:
+                    widget.buildFutureFilterOrOrderButton,
+                setState: setState,
+                currentPage: widget.currentPage,
+                dialogBox: widget.dialogBox,
+                doneButton: widget.doneButton,
+                filters: filters,
+                futureSearchFilterOptions: widget.futureSearchFilterOptions,
+                futureSearchOrderOptions: widget.futureSearchOrderOptions,
+                hint: widget.hint,
+                orderAsc: orderAsc,
+                orderBy: orderBy,
+                pop: pop,
+                rightToLeft: widget.rightToLeft,
+                selectedResult: selectedResult,
+                updateParentWithOptionalPop: updateParentWithOptionalPop,
+                valid: valid,
+                validResult: validResult,
+              ),
               searchBar(),
               listWithPagination(),
               closeButtonWrapper(),
@@ -363,99 +410,6 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
       return (widget.validator!(selectedResult));
     }
     return (null);
-  }
-
-  /// Widget displayed above the search bar.
-  Widget titleBar() {
-    Widget? doneButtonWidget =
-        widget.multipleSelection || widget.doneButton != null
-            ? prepareWidget(widget.doneButton,
-                parameter: selectedResult,
-                context: context,
-                updateParent: updateParentWithOptionalPop,
-                stringToWidgetFunction: (string) {
-                return (TextButton.icon(
-                    onPressed: !valid
-                        ? null
-                        : () {
-                            pop();
-                            setState(() {});
-                          },
-                    icon: Icon(Icons.close),
-                    label: Text(
-                      string,
-                      textDirection: widget.rightToLeft
-                          ? TextDirection.rtl
-                          : TextDirection.ltr,
-                    )));
-              })
-            : SizedBox.shrink();
-    Widget futureOrderAndFilterButtons = Row(
-      children: <Widget>[
-        widget.futureSearchOrderOptions == null
-            ? SizedBox.shrink()
-            : FutureSearchOrderOptionsWidget(
-                futureSearchOrderOptions: widget.futureSearchOrderOptions,
-                currentPage: widget.currentPage,
-                orderAsc: orderAsc,
-                orderBy: orderBy,
-                setState: setState,
-                rightToLeft: widget.rightToLeft,
-                updateParentWithOptionalPop: updateParentWithOptionalPop,
-              ),
-        widget.futureSearchOrderOptions != null &&
-                widget.futureSearchFilterOptions != null
-            ? SizedBox(
-                width: 10,
-              )
-            : SizedBox.shrink(),
-        widget.futureSearchFilterOptions == null
-            ? SizedBox.shrink()
-            : FutureSearchFilterOptionsWidget(
-                futureSearchFilterOptions: widget.futureSearchFilterOptions,
-                filters: filters,
-                updateParentWithOptionalPop: updateParentWithOptionalPop,
-                rightToLeft: widget.rightToLeft,
-                currentPage: widget.currentPage,
-                dialogBox: widget.dialogBox,
-                setState: setState,
-              ),
-      ],
-    );
-    return (widget.hint != null ||
-            widget.futureSearchOrderOptions != null ||
-            widget.futureSearchFilterOptions != null)
-        ? Container(
-            margin: EdgeInsets.only(bottom: 8),
-            child: Row(
-                textDirection:
-                    widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  prepareWidget(widget.hint) ?? SizedBox.shrink(),
-                  futureOrderAndFilterButtons,
-                  Column(
-                    children: <Widget>[
-                      doneButtonWidget ?? SizedBox.shrink(),
-                      TitleValidatorOutputWidget(
-                          dialogBox: widget.dialogBox,
-                          rightToLeft: widget.rightToLeft,
-                          validResult: validResult),
-                    ],
-                  ),
-                ]),
-          )
-        : Container(
-            child: Column(
-              children: <Widget>[
-                doneButtonWidget ?? SizedBox.shrink(),
-                TitleValidatorOutputWidget(
-                    dialogBox: widget.dialogBox,
-                    rightToLeft: widget.rightToLeft,
-                    validResult: validResult),
-              ],
-            ),
-          );
   }
 
   /// Basically splits the search between the searchFn and the futureSearchFn

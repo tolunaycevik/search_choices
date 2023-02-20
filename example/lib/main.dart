@@ -2205,6 +2205,83 @@ class MyAppState extends State<MyApp> {
           );
         },
         searchDelay: 500,
+        // Here, buildFutureFilterOrOrderButton doesn't change anything.
+        // This is a way to make sure this parameter still works with automated
+        // integration testing.
+        buildFutureFilterOrOrderButton: ({
+          required BuildContext context,
+          required bool filter,
+          required Function onPressed,
+          int? nbFilters,
+          bool? orderAsc,
+          String? orderBy,
+        }) {
+          if (filter) {
+            return (SizedBox(
+              height: 25,
+              width: 48,
+              child: (ElevatedButton(
+                child: Icon(
+                  nbFilters == null || nbFilters == 0
+                      ? Icons.filter
+                      : nbFilters == 1
+                          ? Icons.filter_1
+                          : nbFilters == 2
+                              ? Icons.filter_2
+                              : nbFilters == 3
+                                  ? Icons.filter_3
+                                  : nbFilters == 4
+                                      ? Icons.filter_4
+                                      : nbFilters == 5
+                                          ? Icons.filter_5
+                                          : nbFilters == 6
+                                              ? Icons.filter_6
+                                              : nbFilters == 7
+                                                  ? Icons.filter_7
+                                                  : nbFilters == 8
+                                                      ? Icons.filter_8
+                                                      : nbFilters == 9
+                                                          ? Icons.filter_9
+                                                          : Icons
+                                                              .filter_9_plus_sharp,
+                  size: 17,
+                ),
+                onPressed: () {
+                  onPressed();
+                },
+              )),
+            ));
+          }
+
+          Widget icon = Icon(
+            Icons.sort,
+            size: 17,
+          );
+
+          return SizedBox(
+            height: 25,
+            width: orderBy == null ? 48 : 70,
+            child: (orderBy == null
+                ? ElevatedButton(
+                    child: icon,
+                    onPressed: () {
+                      onPressed();
+                    },
+                  )
+                : ElevatedButton.icon(
+                    label: Icon(
+                      orderAsc ?? true
+                          ? Icons.arrow_upward
+                          : Icons.arrow_downward,
+                      size: 17,
+                    ),
+                    icon: icon,
+                    onPressed: () {
+                      onPressed();
+                    },
+                  )),
+          );
+        },
       ),
       "Single dialog custom field presentation": SearchChoices.single(
         items: items,

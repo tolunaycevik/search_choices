@@ -1,3 +1,8 @@
+## 2.2.3
+
+* added buildFutureFilterOrOrderButton to customize future filter and order button. Thanks @agustin-garcia https://github.com/lcuis/search_choices/issues/107
+* continued with task 2 of https://github.com/lcuis/search_choices/issues/100
+
 ## 2.2.2
 
 * subtitle1 is deprecated. Use titleMedium instead.

@@ -23,6 +23,16 @@ class FutureSearchFilterOptionsWidget extends StatelessWidget {
 
   final StateSetter setState;
 
+  /// See SearchChoices class.
+  final Widget Function({
+    required bool filter,
+    required BuildContext context,
+    required Function onPressed,
+    int? nbFilters,
+    bool? orderAsc,
+    String? orderBy,
+  })? buildFutureFilterOrOrderButton;
+
   FutureSearchFilterOptionsWidget({
     this.futureSearchFilterOptions,
     required this.filters,
@@ -31,6 +41,7 @@ class FutureSearchFilterOptionsWidget extends StatelessWidget {
     this.currentPage,
     required this.dialogBox,
     required this.setState,
+    this.buildFutureFilterOrOrderButton,
   });
 
   @override
@@ -38,6 +49,16 @@ class FutureSearchFilterOptionsWidget extends StatelessWidget {
     if (futureSearchFilterOptions == null ||
         futureSearchFilterOptions!.isEmpty) {
       return (SizedBox.shrink());
+    }
+    if (buildFutureFilterOrOrderButton != null) {
+      return buildFutureFilterOrOrderButton!(
+        filter: true,
+        context: context,
+        onPressed: () {
+          onPressed(context);
+        },
+        nbFilters: filters.value?.length ?? 0,
+      );
     }
     return SizedBox(
       height: 25,
@@ -68,151 +89,150 @@ class FutureSearchFilterOptionsWidget extends StatelessWidget {
           size: 17,
         ),
         onPressed: () {
-          showMenu(
-              context: context,
-              position: RelativeRect.fromLTRB(100, 30, 20, 100),
-              items: futureSearchFilterOptions!
-                  .map<String, PopupMenuItem>((k, v) {
-                    bool exclusive = v.containsKey("exclusive")
-                        ? v["exclusive"] as bool
-                        : false;
-                    return (MapEntry(
-                        k,
-                        PopupMenuItem(
-                            child: Column(
-                          children: ((v["values"] ?? []) as List<dynamic>)
-                              .map<Widget>((
-                            value,
-                          ) {
-                            Widget inner;
-                            String fk;
-                            if (value is Map<String, dynamic>) {
-                              assert((value).length == 1,
-                                  "filter object not well built");
-                              fk = (value).keys.first;
-                              dynamic fv = (value).values.first ?? null;
+          onPressed(context);
+        },
+      )),
+    );
+  }
 
-                              inner = (prepareWidget(
-                                    fv ?? fk,
-                                    parameter: filters.value,
-                                    updateParent: updateParentWithOptionalPop,
-                                    context: context,
-                                  ) ??
-                                  fk) as Widget;
-                            } else {
-                              fk = value;
-                              inner = prepareWidget(
-                                    value,
-                                    parameter: filters.value,
-                                    updateParent: updateParentWithOptionalPop,
-                                    context: context,
-                                  ) ??
-                                  value;
-                            }
-                            bool isSelected = false;
-                            if (filters.value
-                                    ?.any((Tuple2<String, String> element) {
-                                  return (element.item1 == k &&
-                                      element.item2 == fk);
-                                }) ??
-                                false) {
-                              isSelected = true;
-                            }
-                            return (Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: (SizedBox(
-                                height: 30,
-                                child: (ElevatedButton(
-                                  child: Row(
-                                    children: [
-                                      rightToLeft && isSelected
-                                          ? Icon(Icons.check)
-                                          : SizedBox.shrink(),
-                                      inner,
-                                      !rightToLeft && isSelected
-                                          ? Icon(Icons.check)
-                                          : SizedBox.shrink()
-                                    ],
-                                  ),
-                                  onPressed: () {
-                                    currentPage?.value = 1;
-                                    if (filters.value == null) {
-                                      filters.value = [];
-                                    }
-                                    bool isSelected = false;
-                                    if (filters.value?.any(
-                                            (Tuple2<String, String> element) {
-                                          return (element.item1 == k &&
-                                              element.item2 == fk);
-                                        }) ??
-                                        false) {
-                                      isSelected = true;
-                                    }
-                                    if (isSelected) {
-                                      filters.value!.removeWhere((element) =>
-                                          element.item1 == k &&
-                                          element.item2 == fk);
-                                    } else {
-                                      if (exclusive) {
-                                        filters.value!.removeWhere(
-                                            (element) => element.item1 == k);
-                                      }
-                                      filters.value!.add(Tuple2(k, fk));
-                                    }
-                                    if (dialogBox) {
-                                      setState(() {});
-                                    }
-                                    Navigator.pop(context);
-                                    if (!dialogBox) {
-                                      setState(() {});
-                                    }
-                                  },
-                                )),
-                              )),
-                            ));
-                          }).toList()
-                            ..insert(
-                              0,
-                              PopupMenuItem(
-                                child: SizedBox(
-                                  height: 30,
-                                  child: prepareWidget(
-                                        v["icon"] ?? k,
-                                        parameter: filters.value,
-                                        updateParent:
-                                            updateParentWithOptionalPop,
-                                        context: context,
-                                      ) ??
-                                      Text(k),
-                                ),
-                              ),
+  onPressed(BuildContext context) {
+    showMenu(
+        context: context,
+        position: RelativeRect.fromLTRB(100, 30, 20, 100),
+        items: futureSearchFilterOptions!
+            .map<String, PopupMenuItem>((k, v) {
+              bool exclusive =
+                  v.containsKey("exclusive") ? v["exclusive"] as bool : false;
+              return (MapEntry(
+                  k,
+                  PopupMenuItem(
+                      child: Column(
+                    children:
+                        ((v["values"] ?? []) as List<dynamic>).map<Widget>((
+                      value,
+                    ) {
+                      Widget inner;
+                      String fk;
+                      if (value is Map<String, dynamic>) {
+                        assert((value).length == 1,
+                            "filter object not well built");
+                        fk = (value).keys.first;
+                        dynamic fv = (value).values.first ?? null;
+
+                        inner = (prepareWidget(
+                              fv ?? fk,
+                              parameter: filters.value,
+                              updateParent: updateParentWithOptionalPop,
+                              context: context,
+                            ) ??
+                            fk) as Widget;
+                      } else {
+                        fk = value;
+                        inner = prepareWidget(
+                              value,
+                              parameter: filters.value,
+                              updateParent: updateParentWithOptionalPop,
+                              context: context,
+                            ) ??
+                            value;
+                      }
+                      bool isSelected = false;
+                      if (filters.value?.any((Tuple2<String, String> element) {
+                            return (element.item1 == k && element.item2 == fk);
+                          }) ??
+                          false) {
+                        isSelected = true;
+                      }
+                      return (Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: (SizedBox(
+                          height: 30,
+                          child: (ElevatedButton(
+                            child: Row(
+                              children: [
+                                rightToLeft && isSelected
+                                    ? Icon(Icons.check)
+                                    : SizedBox.shrink(),
+                                inner,
+                                !rightToLeft && isSelected
+                                    ? Icon(Icons.check)
+                                    : SizedBox.shrink()
+                              ],
                             ),
-                        ))));
-                  })
-                  .values
-                  .toList()
-                ..insert(
-                    0,
-                    PopupMenuItem(
-                      child: SizedBox(
-                        height: 30,
-                        child: ElevatedButton(
                             onPressed: () {
                               currentPage?.value = 1;
-                              filters.value?.clear();
+                              if (filters.value == null) {
+                                filters.value = [];
+                              }
+                              bool isSelected = false;
+                              if (filters.value
+                                      ?.any((Tuple2<String, String> element) {
+                                    return (element.item1 == k &&
+                                        element.item2 == fk);
+                                  }) ??
+                                  false) {
+                                isSelected = true;
+                              }
+                              if (isSelected) {
+                                filters.value!.removeWhere((element) =>
+                                    element.item1 == k && element.item2 == fk);
+                              } else {
+                                if (exclusive) {
+                                  filters.value!.removeWhere(
+                                      (element) => element.item1 == k);
+                                }
+                                filters.value!.add(Tuple2(k, fk));
+                              }
+                              if (dialogBox) {
+                                setState(() {});
+                              }
                               Navigator.pop(context);
                               if (!dialogBox) {
                                 setState(() {});
                               }
                             },
-                            child: Icon(
-                              Icons.clear,
-                              size: 17,
-                            )),
-                      ),
-                    )));
-        },
-      )),
-    );
+                          )),
+                        )),
+                      ));
+                    }).toList()
+                          ..insert(
+                            0,
+                            PopupMenuItem(
+                              child: SizedBox(
+                                height: 30,
+                                child: prepareWidget(
+                                      v["icon"] ?? k,
+                                      parameter: filters.value,
+                                      updateParent: updateParentWithOptionalPop,
+                                      context: context,
+                                    ) ??
+                                    Text(k),
+                              ),
+                            ),
+                          ),
+                  ))));
+            })
+            .values
+            .toList()
+          ..insert(
+              0,
+              PopupMenuItem(
+                child: SizedBox(
+                  height: 30,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        currentPage?.value = 1;
+                        filters.value?.clear();
+                        Navigator.pop(context);
+                        if (!dialogBox) {
+                          setState(() {});
+                        }
+                      },
+                      child: Icon(
+                        Icons.clear,
+                        size: 17,
+                      )),
+                ),
+              )));
   }
 }

@@ -307,6 +307,22 @@ class SearchChoices<T> extends FormField<T> {
   /// dialog can be closed from outside the widget.
   final Function(Function pop)? giveMeThePop;
 
+  /// [buildFutureFilterOrOrderButton] [Function] to customize the order and
+  /// filter button in case of future search. Where:
+  /// * [filter] is true if building filter button and false while building
+  /// order button.
+  /// * [nbFilters] is set to the number of filters applied if any.
+  /// * [orderAsc] true when the applied order is ascending.
+  /// * [orderBy] is the string by which the search is sorted.
+  final Widget Function({
+    required bool filter,
+    required BuildContext context,
+    required Function onPressed,
+    int? nbFilters,
+    bool? orderAsc,
+    String? orderBy,
+  })? buildFutureFilterOrOrderButton;
+
   /// Search choices Widget with a single choice that opens a dialog or a menu
   /// to let the user do the selection conveniently with a search.
   ///
@@ -436,6 +452,13 @@ class SearchChoices<T> extends FormField<T> {
   /// * [restorationId] as in FormField.
   /// * [giveMeThePop] [Function] to pass the pop function so that the menu or
   /// dialog can be closed from outside the widget.
+  /// * [buildFutureFilterOrOrderButton] [Function] to customize the order and
+  /// filter button in case of future search. Where:
+  /// ** [filter] is true if building filter button and false while building
+  /// order button.
+  /// ** [nbFilters] is set to the number of filters applied if any.
+  /// ** [orderAsc] true when the applied order is ascending.
+  /// ** [orderBy] is the string by which the search is sorted.
   factory SearchChoices.single({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -518,6 +541,15 @@ class SearchChoices<T> extends FormField<T> {
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
     Function(Function pop)? giveMeThePop,
+    Widget Function({
+      required bool filter,
+      required BuildContext context,
+      required Function onPressed,
+      int? nbFilters,
+      bool? orderAsc,
+      String? orderBy,
+    })?
+        buildFutureFilterOrOrderButton,
   }) {
     return (SearchChoices._(
       key: key,
@@ -577,6 +609,7 @@ class SearchChoices<T> extends FormField<T> {
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
       giveMeThePop: giveMeThePop,
+      buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
     ));
   }
 
@@ -708,6 +741,13 @@ class SearchChoices<T> extends FormField<T> {
   /// [showDialogFn] [Function] allows the control of the dialog display.
   /// * [listValidator] [Function] with parameter: __List__ returning [String]
   /// displayed below selected value when not valid and null when valid.
+  /// * [buildFutureFilterOrOrderButton] [Function] to customize the order and
+  /// filter button in case of future search. Where:
+  /// ** [filter] is true if building filter button and false while building
+  /// order button.
+  /// ** [nbFilters] is set to the number of filters applied if any.
+  /// ** [orderAsc] true when the applied order is ascending.
+  /// ** [orderBy] is the string by which the search is sorted.
   factory SearchChoices.multiple({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -791,6 +831,15 @@ class SearchChoices<T> extends FormField<T> {
     AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
     String? restorationId,
     Function(Function pop)? giveMeThePop,
+    Widget Function({
+      required bool filter,
+      required BuildContext context,
+      required Function onPressed,
+      int? nbFilters,
+      bool? orderAsc,
+      String? orderBy,
+    })?
+        buildFutureFilterOrOrderButton,
   }) {
     return (SearchChoices._(
       key: key,
@@ -852,6 +901,7 @@ class SearchChoices<T> extends FormField<T> {
       autovalidateMode: autovalidateMode,
       restorationId: restorationId,
       giveMeThePop: giveMeThePop,
+      buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
     ));
   }
 
@@ -920,6 +970,7 @@ class SearchChoices<T> extends FormField<T> {
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.restorationId,
     this.giveMeThePop,
+    this.buildFutureFilterOrOrderButton,
   })  : assert(!multipleSelection || doneButton != null),
         assert(menuConstraints == null || !dialogBox),
         assert(itemsPerPage == null || currentPage != null,
@@ -1289,6 +1340,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
         giveMeThePop: giveMeThePop,
         clearSearchIcon: widget.clearSearchIcon,
         listValidator: widget.listValidator,
+        buildFutureFilterOrOrderButton: widget.buildFutureFilterOrOrderButton,
       ));
     });
   }
