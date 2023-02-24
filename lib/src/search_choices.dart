@@ -526,169 +526,85 @@ class SearchChoices<T> extends FormField<T> {
   /// ** [orderBy] is the string by which the search is sorted.
   /// * [searchResultDisplayFn] to customize the display of the search result
   /// items within the dialog or menu.
-  factory SearchChoices.single({
+  SearchChoices.single({
     Key? key,
-    List<DropdownMenuItem<T>>? items,
-    Function? onChanged,
-    T? value,
-    TextStyle? style,
-    dynamic searchHint,
-    dynamic hint,
-    dynamic disabledHint,
-    dynamic icon = const Icon(Icons.arrow_drop_down),
-    dynamic underline,
-    dynamic doneButton,
-    dynamic label,
-    dynamic closeButton = "Close",
-    bool displayClearIcon = true,
-    Icon clearIcon = const Icon(Icons.clear),
-    Color? iconEnabledColor,
-    Color? iconDisabledColor,
-    double iconSize = 24.0,
-    bool isExpanded = false,
-    bool isCaseSensitiveSearch = false,
-    Function? searchFn,
-    Function? onClear,
-    Function? selectedValueWidgetFn,
-    TextInputType keyboardType = TextInputType.text,
-    String? Function(T?)? validator,
-    bool assertUniqueValue = true,
-    Function? displayItem,
-    bool dialogBox = true,
-    BoxConstraints? menuConstraints,
-    bool readOnly = false,
-    Color? menuBackgroundColor,
-    bool rightToLeft = false,
-    bool autofocus = true,
-    Function? selectedAggregateWidgetFn,
-    dynamic padding,
-    Function? setOpenDialog,
-    Widget Function(
-      Widget titleBar,
-      Widget searchBar,
-      Widget list,
-      Widget closeButton,
-      BuildContext dropDownContext,
-    )?
-        buildDropDownDialog,
-    EdgeInsets? dropDownDialogPadding,
-    InputDecoration? searchInputDecoration,
-    int? itemsPerPage,
-    PointerThisPlease<int>? currentPage,
-    Widget Function(Widget listWidget, int totalFilteredItemsNb,
-            Function updateSearchPage)?
-        customPaginationDisplay,
-    Future<Tuple2<List<DropdownMenuItem>, int>> Function(
-            String? keyword,
-            String? orderBy,
-            bool? orderAsc,
-            List<Tuple2<String, String>>? filters,
-            int? pageNb)?
-        futureSearchFn,
-    Map<String, Map<String, dynamic>>? futureSearchOrderOptions,
-    Map<String, Map<String, Object>>? futureSearchFilterOptions,
-    dynamic emptyListWidget,
-    Function? onTap,
-    Function? futureSearchRetryButton,
-    int? searchDelay,
-    Widget Function(Widget fieldWidget, {bool selectionIsValid})?
-        fieldPresentationFn,
-    Decoration? fieldDecoration,
-    Widget? clearSearchIcon,
-    Future<void> Function(
-      BuildContext context,
-      Widget Function({
-        String searchTerms,
-      })
-          menuWidget,
-      String searchTerms,
-    )?
-        showDialogFn,
-    FormFieldSetter<T>? onSaved,
-    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
-    String? restorationId,
-    Function(Function pop)? giveMeThePop,
-    Widget Function({
-      required bool filter,
-      required BuildContext context,
-      required Function onPressed,
-      int? nbFilters,
-      bool? orderAsc,
-      String? orderBy,
-    })?
-        buildFutureFilterOrOrderButton,
-    Widget Function({
-      required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
-      required ScrollController scrollController,
-      required bool thumbVisibility,
-      required Widget emptyListWidget,
-      required void Function(int index, T value, bool itemSelected) itemTapped,
-      required Widget Function(DropdownMenuItem item, bool isItemSelected)
-          displayItem,
-    })?
-        searchResultDisplayFn,
-  }) {
-    return (SearchChoices._(
-      key: key,
-      items: items,
-      onChanged: onChanged,
-      value: value,
-      style: style,
-      searchHint: searchHint,
-      hint: hint,
-      disabledHint: disabledHint,
-      icon: icon,
-      underline: underline,
-      iconEnabledColor: iconEnabledColor,
-      iconDisabledColor: iconDisabledColor,
-      iconSize: iconSize,
-      isExpanded: isExpanded,
-      isCaseSensitiveSearch: isCaseSensitiveSearch,
-      closeButton: closeButton,
-      displayClearIcon: displayClearIcon,
-      clearIcon: clearIcon,
-      onClear: onClear,
-      selectedValueWidgetFn: selectedValueWidgetFn,
-      keyboardType: keyboardType,
-      validator: validator,
-      label: label,
-      searchFn: searchFn,
-      multipleSelection: false,
-      doneButton: doneButton,
-      displayItem: displayItem,
-      dialogBox: dialogBox,
-      menuConstraints: menuConstraints,
-      readOnly: readOnly,
-      menuBackgroundColor: menuBackgroundColor,
-      rightToLeft: rightToLeft,
-      autofocus: autofocus,
-      selectedAggregateWidgetFn: selectedAggregateWidgetFn,
-      padding: padding,
-      setOpenDialog: setOpenDialog,
-      buildDropDownDialog: buildDropDownDialog,
-      dropDownDialogPadding: dropDownDialogPadding,
-      searchInputDecoration: searchInputDecoration,
-      itemsPerPage: itemsPerPage,
-      currentPage: currentPage,
-      customPaginationDisplay: customPaginationDisplay,
-      futureSearchFn: futureSearchFn,
-      futureSearchOrderOptions: futureSearchOrderOptions,
-      futureSearchFilterOptions: futureSearchFilterOptions,
-      emptyListWidget: emptyListWidget,
-      onTap: onTap,
-      futureSearchRetryButton: futureSearchRetryButton,
-      searchDelay: searchDelay,
-      fieldPresentationFn: fieldPresentationFn,
-      fieldDecoration: fieldDecoration,
-      clearSearchIcon: clearSearchIcon,
-      showDialogFn: showDialogFn,
-      onSaved: onSaved,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-      giveMeThePop: giveMeThePop,
-      buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
-      searchResultDisplayFn: searchResultDisplayFn,
-    ));
+    this.items,
+    this.onChanged,
+    this.value,
+    this.style,
+    this.searchHint,
+    this.hint,
+    this.disabledHint,
+    this.icon = const Icon(Icons.arrow_drop_down),
+    this.underline,
+    this.doneButton,
+    this.label,
+    this.closeButton = "Close",
+    this.displayClearIcon = true,
+    this.clearIcon = const Icon(Icons.clear),
+    this.iconEnabledColor,
+    this.iconDisabledColor,
+    this.iconSize = 24.0,
+    this.isExpanded = false,
+    this.isCaseSensitiveSearch = false,
+    this.searchFn,
+    this.onClear,
+    this.selectedValueWidgetFn,
+    this.keyboardType = TextInputType.text,
+    this.validator,
+    @deprecated bool assertUniqueValue = true,
+    this.displayItem,
+    this.dialogBox = true,
+    this.menuConstraints,
+    this.readOnly = false,
+    this.menuBackgroundColor,
+    this.rightToLeft = false,
+    this.autofocus = true,
+    this.selectedAggregateWidgetFn,
+    this.padding,
+    this.setOpenDialog,
+    this.buildDropDownDialog,
+    this.dropDownDialogPadding,
+    this.searchInputDecoration,
+    this.itemsPerPage,
+    this.currentPage,
+    this.customPaginationDisplay,
+    this.futureSearchFn,
+    this.futureSearchOrderOptions,
+    this.futureSearchFilterOptions,
+    this.emptyListWidget,
+    this.onTap,
+    this.futureSearchRetryButton,
+    this.searchDelay,
+    this.fieldPresentationFn,
+    this.fieldDecoration,
+    this.clearSearchIcon,
+    this.showDialogFn,
+    this.onSaved,
+    this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.restorationId,
+    this.giveMeThePop,
+    this.buildFutureFilterOrOrderButton,
+    this.searchResultDisplayFn,
+  })  : multipleSelection = false,
+        selectedItems = const [],
+        futureSelectedValues = null,
+        listValidator = null,
+        super(
+          key: key,
+          builder: (FormFieldState<dynamic> state) {
+            _SearchChoicesState<T> sCState = state as _SearchChoicesState<T>;
+            return (sCState.buildWidget(sCState.context));
+          },
+          onSaved: onSaved,
+          validator: validator,
+          initialValue: value,
+          enabled: (items?.isNotEmpty ?? false || futureSearchFn != null) &&
+              (onChanged != null || onChanged is Function),
+          autovalidateMode: autovalidateMode,
+          restorationId: restorationId,
+        ) {
+    checkPreconditions();
   }
 
   /// Search choices Widget with a multiple choice that opens a dialog or a menu
@@ -828,213 +744,39 @@ class SearchChoices<T> extends FormField<T> {
   /// ** [orderBy] is the string by which the search is sorted.
   /// * [searchResultDisplayFn] to customize the display of the search result
   /// items within the dialog or menu.
-  factory SearchChoices.multiple({
-    Key? key,
-    List<DropdownMenuItem<T>>? items,
-    Function? onChanged,
-    List<int> selectedItems = const [],
-    TextStyle? style,
-    dynamic searchHint,
-    dynamic hint,
-    dynamic disabledHint,
-    dynamic icon = const Icon(Icons.arrow_drop_down),
-    dynamic underline,
-    dynamic doneButton = "Done",
-    dynamic label,
-    dynamic closeButton = "Close",
-    bool displayClearIcon = true,
-    Icon clearIcon = const Icon(Icons.clear),
-    Color? iconEnabledColor,
-    Color? iconDisabledColor,
-    double iconSize = 24.0,
-    bool isExpanded = false,
-    bool isCaseSensitiveSearch = false,
-    Function? searchFn,
-    Function? onClear,
-    Function? selectedValueWidgetFn,
-    TextInputType keyboardType = TextInputType.text,
-    String? Function(T?)? validator,
-    Function? displayItem,
-    bool dialogBox = true,
-    BoxConstraints? menuConstraints,
-    bool readOnly = false,
-    Color? menuBackgroundColor,
-    bool rightToLeft = false,
-    bool autofocus = true,
-    Function? selectedAggregateWidgetFn,
-    dynamic padding,
-    Function? setOpenDialog,
-    Widget Function(
-      Widget titleBar,
-      Widget searchBar,
-      Widget list,
-      Widget closeButton,
-      BuildContext dropDownContext,
-    )?
-        buildDropDownDialog,
-    EdgeInsets? dropDownDialogPadding,
-    InputDecoration? searchInputDecoration,
-    int? itemsPerPage,
-    PointerThisPlease<int>? currentPage,
-    Widget Function(Widget listWidget, int totalFilteredItemsNb,
-            Function updateSearchPage)?
-        customPaginationDisplay,
-    Future<Tuple2<List<DropdownMenuItem>, int>> Function(
-            String? keyword,
-            String? orderBy,
-            bool? orderAsc,
-            List<Tuple2<String, String>>? filters,
-            int? pageNb)?
-        futureSearchFn,
-    Map<String, Map<String, dynamic>>? futureSearchOrderOptions,
-    Map<String, Map<String, Object>>? futureSearchFilterOptions,
-    List<T>? futureSelectedValues,
-    dynamic emptyListWidget,
-    Function? onTap,
-    Function? futureSearchRetryButton,
-    int? searchDelay,
-    Widget Function(Widget fieldWidget, {bool selectionIsValid})?
-        fieldPresentationFn,
-    Decoration? fieldDecoration,
-    Widget? clearSearchIcon,
-    Future<void> Function(
-      BuildContext context,
-      Widget Function({
-        String searchTerms,
-      })
-          menuWidget,
-      String searchTerms,
-    )?
-        showDialogFn,
-    FormFieldSetter<T>? onSaved,
-    String? Function(List<dynamic>)? listValidator,
-    AutovalidateMode autovalidateMode = AutovalidateMode.onUserInteraction,
-    String? restorationId,
-    Function(Function pop)? giveMeThePop,
-    Widget Function({
-      required bool filter,
-      required BuildContext context,
-      required Function onPressed,
-      int? nbFilters,
-      bool? orderAsc,
-      String? orderBy,
-    })?
-        buildFutureFilterOrOrderButton,
-    Widget Function({
-      required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
-      required ScrollController scrollController,
-      required bool thumbVisibility,
-      required Widget emptyListWidget,
-      required void Function(int index, T value, bool itemSelected) itemTapped,
-      required Widget Function(DropdownMenuItem item, bool isItemSelected)
-          displayItem,
-    })?
-        searchResultDisplayFn,
-  }) {
-    return (SearchChoices._(
-      key: key,
-      items: items,
-      style: style,
-      searchHint: searchHint,
-      hint: hint,
-      disabledHint: disabledHint,
-      icon: icon,
-      underline: underline,
-      iconEnabledColor: iconEnabledColor,
-      iconDisabledColor: iconDisabledColor,
-      iconSize: iconSize,
-      isExpanded: isExpanded,
-      isCaseSensitiveSearch: isCaseSensitiveSearch,
-      closeButton: closeButton,
-      displayClearIcon: displayClearIcon,
-      clearIcon: clearIcon,
-      onClear: onClear,
-      selectedValueWidgetFn: selectedValueWidgetFn,
-      keyboardType: keyboardType,
-      validator: validator,
-      label: label,
-      searchFn: searchFn,
-      multipleSelection: true,
-      selectedItems: selectedItems,
-      doneButton: doneButton,
-      onChanged: onChanged,
-      displayItem: displayItem,
-      dialogBox: dialogBox,
-      menuConstraints: menuConstraints,
-      readOnly: readOnly,
-      menuBackgroundColor: menuBackgroundColor,
-      rightToLeft: rightToLeft,
-      autofocus: autofocus,
-      selectedAggregateWidgetFn: selectedAggregateWidgetFn,
-      padding: padding,
-      setOpenDialog: setOpenDialog,
-      buildDropDownDialog: buildDropDownDialog,
-      dropDownDialogPadding: dropDownDialogPadding,
-      searchInputDecoration: searchInputDecoration,
-      itemsPerPage: itemsPerPage,
-      currentPage: currentPage,
-      customPaginationDisplay: customPaginationDisplay,
-      futureSearchFn: futureSearchFn,
-      futureSearchOrderOptions: futureSearchOrderOptions,
-      futureSearchFilterOptions: futureSearchFilterOptions,
-      futureSelectedValues: futureSelectedValues,
-      emptyListWidget: emptyListWidget,
-      onTap: onTap,
-      futureSearchRetryButton: futureSearchRetryButton,
-      searchDelay: searchDelay,
-      fieldPresentationFn: fieldPresentationFn,
-      fieldDecoration: fieldDecoration,
-      clearSearchIcon: clearSearchIcon,
-      showDialogFn: showDialogFn,
-      onSaved: onSaved,
-      listValidator: listValidator,
-      autovalidateMode: autovalidateMode,
-      restorationId: restorationId,
-      giveMeThePop: giveMeThePop,
-      buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
-      searchResultDisplayFn: searchResultDisplayFn,
-    ));
-  }
-
-  bool get isEnabled =>
-      (items?.isNotEmpty ?? false || futureSearchFn != null) &&
-      (onChanged != null || onChanged is Function);
-
-  SearchChoices._({
+  SearchChoices.multiple({
     Key? key,
     this.items,
     this.onChanged,
-    this.value,
+    this.selectedItems = const [],
     this.style,
     this.searchHint,
     this.hint,
     this.disabledHint,
-    this.icon,
+    this.icon = const Icon(Icons.arrow_drop_down),
     this.underline,
+    this.doneButton = "Done",
+    this.label,
+    this.closeButton = "Close",
+    this.displayClearIcon = true,
+    this.clearIcon = const Icon(Icons.clear),
     this.iconEnabledColor,
     this.iconDisabledColor,
     this.iconSize = 24.0,
     this.isExpanded = false,
     this.isCaseSensitiveSearch = false,
-    this.closeButton,
-    this.displayClearIcon = true,
-    this.clearIcon = const Icon(Icons.clear),
+    this.searchFn,
     this.onClear,
     this.selectedValueWidgetFn,
     this.keyboardType = TextInputType.text,
     this.validator,
-    this.label,
-    this.searchFn,
-    this.multipleSelection = false,
-    this.selectedItems = const [],
-    this.doneButton,
     this.displayItem,
-    required this.dialogBox,
+    this.dialogBox = true,
     this.menuConstraints,
-    required this.readOnly,
+    this.readOnly = false,
     this.menuBackgroundColor,
-    required this.rightToLeft,
-    required this.autofocus,
+    this.rightToLeft = false,
+    this.autofocus = true,
     this.selectedAggregateWidgetFn,
     this.padding,
     this.setOpenDialog,
@@ -1063,49 +805,8 @@ class SearchChoices<T> extends FormField<T> {
     this.giveMeThePop,
     this.buildFutureFilterOrOrderButton,
     this.searchResultDisplayFn,
-  })  : assert(!multipleSelection || doneButton != null),
-        assert(menuConstraints == null || !dialogBox),
-        assert(itemsPerPage == null || currentPage != null,
-            "currentPage must be given if itemsPerPage is given"),
-        assert(
-            dropDownDialogPadding == null || buildDropDownDialog == null,
-            "buildDropDownDialog and dropDownDialogPadding cannot be set at" +
-                " the same time"),
-        assert(dialogBox || dropDownDialogPadding == null,
-            "dropDownDialogPadding must be null if dialogBox == false"),
-        assert(
-            futureSearchOrderOptions == null || futureSearchFn != null,
-            "futureSearchOrderOptions is of no use if futureSearchFn is not " +
-                "set"),
-        assert(
-            futureSearchFilterOptions == null || futureSearchFn != null,
-            "futureSearchFilterOptions is of no use if futureSearchFn is not " +
-                "set"),
-        assert(futureSearchFn == null || searchFn == null,
-            "futureSearchFn and searchFn cannot work together"),
-        assert((futureSearchFn == null) != (items == null),
-            "must either have futureSearchFn or items but not both"),
-        assert(
-            futureSearchFn == null ||
-                (multipleSelection
-                    ? (futureSelectedValues != null && value == null)
-                    : (true && futureSelectedValues == null)),
-            "${multipleSelection ? "futureSelectedValues" : "value"} must be " +
-                "set if futureSearchFn is set in " +
-                "${multipleSelection ? "multiple" : "single"} selection mode " +
-                "while " +
-                "${multipleSelection ? "value" : "futureSelectedValues"} " +
-                "must not be set"),
-        assert(fieldDecoration == null || underline == null,
-            "use either underline or fieldDecoration"),
-        assert(fieldPresentationFn == null || underline == null,
-            "use either underline or fieldPresentationFn"),
-        assert(fieldDecoration == null || padding == null,
-            "use either padding or fieldDecoration"),
-        assert(fieldPresentationFn == null || padding == null,
-            "use either padding or fieldPresentationFn"),
-        assert(dialogBox || showDialogFn == null,
-            "use showDialogFn only with dialogBox"),
+  })  : multipleSelection = true,
+        value = null,
         super(
           key: key,
           builder: (FormFieldState<dynamic> state) {
@@ -1114,12 +815,64 @@ class SearchChoices<T> extends FormField<T> {
           },
           onSaved: onSaved,
           validator: validator,
-          initialValue: value,
+          initialValue: null,
           enabled: (items?.isNotEmpty ?? false || futureSearchFn != null) &&
               (onChanged != null || onChanged is Function),
           autovalidateMode: autovalidateMode,
           restorationId: restorationId,
-        );
+        ) {
+    checkPreconditions();
+  }
+
+  checkPreconditions() {
+    assert(!multipleSelection || doneButton != null);
+    assert(menuConstraints == null || !dialogBox);
+    assert(itemsPerPage == null || currentPage != null,
+        "currentPage must be given if itemsPerPage is given");
+    assert(
+        dropDownDialogPadding == null || buildDropDownDialog == null,
+        "buildDropDownDialog and dropDownDialogPadding cannot be set at" +
+            " the same time");
+    assert(dialogBox || dropDownDialogPadding == null,
+        "dropDownDialogPadding must be null if dialogBox == false");
+    assert(
+        futureSearchOrderOptions == null || futureSearchFn != null,
+        "futureSearchOrderOptions is of no use if futureSearchFn is not " +
+            "set");
+    assert(
+        futureSearchFilterOptions == null || futureSearchFn != null,
+        "futureSearchFilterOptions is of no use if futureSearchFn is not " +
+            "set");
+    assert(futureSearchFn == null || searchFn == null,
+        "futureSearchFn and searchFn cannot work together");
+    assert((futureSearchFn == null) != (items == null),
+        "must either have futureSearchFn or items but not both");
+    assert(
+        futureSearchFn == null ||
+            (multipleSelection
+                ? (futureSelectedValues != null && value == null)
+                : (true && futureSelectedValues == null)),
+        "${multipleSelection ? "futureSelectedValues" : "value"} must be " +
+            "set if futureSearchFn is set in " +
+            "${multipleSelection ? "multiple" : "single"} selection mode " +
+            "while " +
+            "${multipleSelection ? "value" : "futureSelectedValues"} " +
+            "must not be set");
+    assert(fieldDecoration == null || underline == null,
+        "use either underline or fieldDecoration");
+    assert(fieldPresentationFn == null || underline == null,
+        "use either underline or fieldPresentationFn");
+    assert(fieldDecoration == null || padding == null,
+        "use either padding or fieldDecoration");
+    assert(fieldPresentationFn == null || padding == null,
+        "use either padding or fieldPresentationFn");
+    assert(dialogBox || showDialogFn == null,
+        "use showDialogFn only with dialogBox");
+  }
+
+  bool get isEnabled =>
+      (items?.isNotEmpty ?? false || futureSearchFn != null) &&
+      (onChanged != null || onChanged is Function);
 
   @override
   _SearchChoicesState<T> createState() => _SearchChoicesState<T>();

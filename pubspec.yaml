@@ -1,5 +1,5 @@
 name: search_choices
-description: Highly versatile Widget to search through a single or multiple choices list in a dialog box or a menu. Supports pagination and future/API/webservice searches with sort and filter.
+description: Highly customizable Widget to search through a single or multiple choices list in a dialog box or a menu. Supports pagination and future/API/webservice searches with sort and filter. Each release is thoroughly tested through automated integrated testing with Flutster.
 version: 2.2.4
 homepage: https://github.com/lcuis/search_choices
 repository: https://github.com/lcuis/search_choices

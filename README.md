@@ -1,6 +1,6 @@
 # search_choices
 
-Highly versatile Widget to search through a single or multiple choices list in a dialog box or a menu. Supports pagination and future/network/API/webservice searches with sort and filter.
+Highly customizable Widget to search through a single or multiple choices list in a dialog box or a menu. Supports pagination and future/network/API/webservice searches with sort and filter. Each release is thoroughly tested through automated integrated testing with Flutster.
 
 ## Platforms
 

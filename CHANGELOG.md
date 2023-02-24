@@ -1,6 +1,8 @@
 ## 2.2.4
 
 * added searchResultDisplayFn. Thanks @ramioooz https://github.com/lcuis/search_choices/issues/109
+* improved documentation and simplified constructors. Thanks @Macacoazul01 https://github.com/lcuis/search_choices/issues/65
+* marked assertUniqueValue parameter as deprecated since it is not used anywhere.
 
 ## 2.2.3
 

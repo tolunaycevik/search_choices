@@ -433,7 +433,7 @@ class MyAppState extends State<MyApp> {
         selectedItems: selectedItemsMultiSelect3Dialog,
         hint: "Select 3 items",
         searchHint: "Select 3",
-        listValidator: (selectedItemsForValidator) {
+        listValidator: (List<dynamic> selectedItemsForValidator) {
           if (selectedItemsForValidator.length != 3) {
             return ("Must select 3");
           }
@@ -1087,7 +1087,7 @@ class MyAppState extends State<MyApp> {
         selectedItems: selectedItemsMultiSelect3Menu,
         hint: "Select 3 items",
         searchHint: "Select 3",
-        listValidator: (selectedItemsForValidatorWithMenu) {
+        listValidator: (List<dynamic> selectedItemsForValidatorWithMenu) {
           if (selectedItemsForValidatorWithMenu.length != 3) {
             return ("Must select 3");
           }
