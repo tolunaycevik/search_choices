@@ -323,6 +323,71 @@ class SearchChoices<T> extends FormField<T> {
     String? orderBy,
   })? buildFutureFilterOrOrderButton;
 
+  /// [searchResultDisplayFn] to customize the display of the search result
+  /// items within the dialog or menu.
+  /// Example:
+  ///         searchResultDisplayFn: ({
+  ///           required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+  ///           required ScrollController scrollController,
+  ///           required bool thumbVisibility,
+  ///           required Widget emptyListWidget,
+  ///           required void Function(int index, dynamic value, bool itemSelected)
+  ///               itemTapped,
+  ///           required Widget Function(DropdownMenuItem item, bool isItemSelected)
+  ///               displayItem,
+  ///         }) {
+  ///           return Expanded(
+  ///               child: itemsToDisplay.length == 0
+  ///                   ? emptyListWidget
+  ///                   : SingleChildScrollView(
+  ///                       child: Wrap(
+  ///                           spacing: 10,
+  ///                           children: itemsToDisplay.map(
+  ///                             (Tuple3<int, DropdownMenuItem, bool> item) {
+  ///                               return Padding(
+  ///                                 padding:
+  ///                                     const EdgeInsets.symmetric(vertical: 8.0),
+  ///                                 child: InkWell(
+  ///                                   onTap: () {
+  ///                                     itemTapped(
+  ///                                       item.item1,
+  ///                                       item.item2.value,
+  ///                                       item.item3,
+  ///                                     );
+  ///                                   },
+  ///                                   child: Container(
+  ///                                     decoration: BoxDecoration(
+  ///                                         border: Border.all(
+  ///                                       color: Colors.grey,
+  ///                                       width: 5,
+  ///                                     )),
+  ///                                     child: Row(
+  ///                                       mainAxisSize: MainAxisSize.min,
+  ///                                       children: [
+  ///                                         Padding(
+  ///                                           padding: const EdgeInsets.symmetric(
+  ///                                               horizontal: 8.0),
+  ///                                           child: item.item2,
+  ///                                         ),
+  ///                                       ],
+  ///                                     ),
+  ///                                   ),
+  ///                                 ),
+  ///                               );
+  ///                             },
+  ///                           ).toList()),
+  ///                     ));
+  ///         },
+  final Widget Function({
+    required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+    required ScrollController scrollController,
+    required bool thumbVisibility,
+    required Widget emptyListWidget,
+    required void Function(int index, T value, bool itemSelected) itemTapped,
+    required Widget Function(DropdownMenuItem item, bool isItemSelected)
+        displayItem,
+  })? searchResultDisplayFn;
+
   /// Search choices Widget with a single choice that opens a dialog or a menu
   /// to let the user do the selection conveniently with a search.
   ///
@@ -459,6 +524,8 @@ class SearchChoices<T> extends FormField<T> {
   /// ** [nbFilters] is set to the number of filters applied if any.
   /// ** [orderAsc] true when the applied order is ascending.
   /// ** [orderBy] is the string by which the search is sorted.
+  /// * [searchResultDisplayFn] to customize the display of the search result
+  /// items within the dialog or menu.
   factory SearchChoices.single({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -550,6 +617,16 @@ class SearchChoices<T> extends FormField<T> {
       String? orderBy,
     })?
         buildFutureFilterOrOrderButton,
+    Widget Function({
+      required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+      required ScrollController scrollController,
+      required bool thumbVisibility,
+      required Widget emptyListWidget,
+      required void Function(int index, T value, bool itemSelected) itemTapped,
+      required Widget Function(DropdownMenuItem item, bool isItemSelected)
+          displayItem,
+    })?
+        searchResultDisplayFn,
   }) {
     return (SearchChoices._(
       key: key,
@@ -610,6 +687,7 @@ class SearchChoices<T> extends FormField<T> {
       restorationId: restorationId,
       giveMeThePop: giveMeThePop,
       buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
+      searchResultDisplayFn: searchResultDisplayFn,
     ));
   }
 
@@ -748,6 +826,8 @@ class SearchChoices<T> extends FormField<T> {
   /// ** [nbFilters] is set to the number of filters applied if any.
   /// ** [orderAsc] true when the applied order is ascending.
   /// ** [orderBy] is the string by which the search is sorted.
+  /// * [searchResultDisplayFn] to customize the display of the search result
+  /// items within the dialog or menu.
   factory SearchChoices.multiple({
     Key? key,
     List<DropdownMenuItem<T>>? items,
@@ -840,6 +920,16 @@ class SearchChoices<T> extends FormField<T> {
       String? orderBy,
     })?
         buildFutureFilterOrOrderButton,
+    Widget Function({
+      required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+      required ScrollController scrollController,
+      required bool thumbVisibility,
+      required Widget emptyListWidget,
+      required void Function(int index, T value, bool itemSelected) itemTapped,
+      required Widget Function(DropdownMenuItem item, bool isItemSelected)
+          displayItem,
+    })?
+        searchResultDisplayFn,
   }) {
     return (SearchChoices._(
       key: key,
@@ -902,6 +992,7 @@ class SearchChoices<T> extends FormField<T> {
       restorationId: restorationId,
       giveMeThePop: giveMeThePop,
       buildFutureFilterOrOrderButton: buildFutureFilterOrOrderButton,
+      searchResultDisplayFn: searchResultDisplayFn,
     ));
   }
 
@@ -971,6 +1062,7 @@ class SearchChoices<T> extends FormField<T> {
     this.restorationId,
     this.giveMeThePop,
     this.buildFutureFilterOrOrderButton,
+    this.searchResultDisplayFn,
   })  : assert(!multipleSelection || doneButton != null),
         assert(menuConstraints == null || !dialogBox),
         assert(itemsPerPage == null || currentPage != null,
@@ -1341,6 +1433,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
         clearSearchIcon: widget.clearSearchIcon,
         listValidator: widget.listValidator,
         buildFutureFilterOrOrderButton: widget.buildFutureFilterOrOrderButton,
+        searchResultDisplayFn: widget.searchResultDisplayFn,
       ));
     });
   }

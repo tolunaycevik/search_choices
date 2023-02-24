@@ -1,3 +1,7 @@
+## 2.2.4
+
+* added searchResultDisplayFn. Thanks @ramioooz https://github.com/lcuis/search_choices/issues/109
+
 ## 2.2.3
 
 * added buildFutureFilterOrOrderButton to customize future filter and order button. Thanks @agustin-garcia https://github.com/lcuis/search_choices/issues/107

@@ -175,6 +175,16 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
       String? orderBy,
     })?
         buildFutureFilterOrOrderButton,
+    Widget Function({
+        required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+        required ScrollController scrollController,
+        required bool thumbVisibility,
+        required Widget emptyListWidget,
+        required void Function(int index, T value, bool itemSelected) itemTapped,
+        required Widget Function(DropdownMenuItem item, bool isItemSelected)
+        displayItem,
+    })?
+      searchResultDisplayFn,
 })
 ```
 
@@ -239,6 +249,7 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
 ** nbFilters is set to the number of filters applied if any.
 ** orderAsc true when the applied order is ascending.
 ** orderBy is the string by which the search is sorted.
+* searchResultDisplayFn to customize the display of the search result items within the dialog or menu.
 
 
 #### Multiple choice constructor
@@ -336,6 +347,16 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
       String? orderBy,
     })?
         buildFutureFilterOrOrderButton,
+    Widget Function({
+        required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+        required ScrollController scrollController,
+        required bool thumbVisibility,
+        required Widget emptyListWidget,
+        required void Function(int index, T value, bool itemSelected) itemTapped,
+        required Widget Function(DropdownMenuItem item, bool isItemSelected)
+        displayItem,
+    })?
+      searchResultDisplayFn,
   })
 ```
 
@@ -401,6 +422,7 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
 ** nbFilters is set to the number of filters applied if any.
 ** orderAsc true when the applied order is ascending.
 ** orderBy is the string by which the search is sorted.
+* searchResultDisplayFn to customize the display of the search result items within the dialog or menu.
 
 #### Example app usage
 
@@ -2733,6 +2755,50 @@ SearchChoices.single(
                         },
                       )),
               );
+            },
+            // Here, searchResultDisplayFn doesn't change anything.
+            // This is a way to make sure this parameter still works with automated
+            // integration testing.
+            searchResultDisplayFn: ({
+                required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+                required ScrollController scrollController,
+                required bool thumbVisibility,
+                required Widget emptyListWidget,
+                required void Function(int index, dynamic value, bool itemSelected)
+                  itemTapped,
+                required Widget Function(DropdownMenuItem item, bool isItemSelected)
+                  displayItem,
+            }) {
+                return Expanded(
+                    child: Scrollbar(
+                        controller: scrollController,
+                        thumbVisibility: thumbVisibility,
+                        child: itemsToDisplay.length == 0
+                        ? emptyListWidget
+                            : ListView.builder(
+                            controller: scrollController,
+                            itemBuilder: (context, index) {
+                                int itemIndex = itemsToDisplay[index].item1;
+                                DropdownMenuItem item = itemsToDisplay[index].item2;
+                                bool isItemSelected = itemsToDisplay[index].item3;
+                                return InkWell(
+                                    onTap: () {
+                                        itemTapped(
+                                            itemIndex,
+                                            item.value,
+                                            isItemSelected,
+                                        );
+                                    },
+                                    child: displayItem(
+                                        item,
+                                        isItemSelected,
+                                    ),
+                                );
+                            },
+                            itemCount: itemsToDisplay.length,
+                        ),
+                    ),
+                );
             },
           )
 ```

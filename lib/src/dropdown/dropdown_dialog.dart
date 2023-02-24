@@ -155,6 +155,17 @@ class DropdownDialog<T> extends StatefulWidget {
     String? orderBy,
   })? buildFutureFilterOrOrderButton;
 
+  /// See SearchChoices class.
+  final Widget Function({
+    required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+    required ScrollController scrollController,
+    required bool thumbVisibility,
+    required Widget emptyListWidget,
+    required void Function(int index, T value, bool itemSelected) itemTapped,
+    required Widget Function(DropdownMenuItem item, bool isItemSelected)
+        displayItem,
+  })? searchResultDisplayFn;
+
   DropdownDialog({
     Key? key,
     this.items,
@@ -198,6 +209,7 @@ class DropdownDialog<T> extends StatefulWidget {
     this.clearSearchIcon,
     this.listValidator,
     this.buildFutureFilterOrOrderButton,
+    this.searchResultDisplayFn,
   }) : super(key: key);
 
   _DropdownDialogState<T> createState() => _DropdownDialogState<T>();
@@ -715,6 +727,16 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
   /// [int] as the index in the [selectedItems] list.
   Widget listDisplay(
       List<Tuple3<int, DropdownMenuItem<dynamic>, bool>> itemsToDisplay) {
+    if (widget.searchResultDisplayFn != null) {
+      return widget.searchResultDisplayFn!(
+        itemsToDisplay: itemsToDisplay,
+        scrollController: widget.listScrollController,
+        thumbVisibility: widget.itemsPerPage == null ? false : true,
+        emptyListWidget: emptyList(),
+        itemTapped: itemTapped as Function(int, dynamic, bool),
+        displayItem: displayItem,
+      );
+    }
     return Expanded(
       child: Scrollbar(
         controller: widget.listScrollController,

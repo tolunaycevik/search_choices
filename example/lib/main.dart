@@ -2282,6 +2282,50 @@ class MyAppState extends State<MyApp> {
                   )),
           );
         },
+        // Here, searchResultDisplayFn doesn't change anything.
+        // This is a way to make sure this parameter still works with automated
+        // integration testing.
+        searchResultDisplayFn: ({
+          required List<Tuple3<int, DropdownMenuItem, bool>> itemsToDisplay,
+          required ScrollController scrollController,
+          required bool thumbVisibility,
+          required Widget emptyListWidget,
+          required void Function(int index, dynamic value, bool itemSelected)
+              itemTapped,
+          required Widget Function(DropdownMenuItem item, bool isItemSelected)
+              displayItem,
+        }) {
+          return Expanded(
+            child: Scrollbar(
+              controller: scrollController,
+              thumbVisibility: thumbVisibility,
+              child: itemsToDisplay.length == 0
+                  ? emptyListWidget
+                  : ListView.builder(
+                      controller: scrollController,
+                      itemBuilder: (context, index) {
+                        int itemIndex = itemsToDisplay[index].item1;
+                        DropdownMenuItem item = itemsToDisplay[index].item2;
+                        bool isItemSelected = itemsToDisplay[index].item3;
+                        return InkWell(
+                          onTap: () {
+                            itemTapped(
+                              itemIndex,
+                              item.value,
+                              isItemSelected,
+                            );
+                          },
+                          child: displayItem(
+                            item,
+                            isItemSelected,
+                          ),
+                        );
+                      },
+                      itemCount: itemsToDisplay.length,
+                    ),
+            ),
+          );
+        },
       ),
       "Single dialog custom field presentation": SearchChoices.single(
         items: items,
