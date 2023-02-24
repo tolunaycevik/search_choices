@@ -1,3 +1,7 @@
+## 2.2.5
+
+* pubspec.yaml description was too long for pub.dev
+
 ## 2.2.4
 
 * added searchResultDisplayFn. Thanks @ramioooz https://github.com/lcuis/search_choices/issues/109
