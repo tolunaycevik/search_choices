@@ -1,3 +1,7 @@
+## 2.2.6
+
+* rightToLeft is defaulted according to app Directionality. Thanks @slavap https://github.com/lcuis/search_choices/issues/116
+
 ## 2.2.5
 
 * pubspec.yaml description was too long for pub.dev

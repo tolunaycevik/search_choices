@@ -118,7 +118,7 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
     BoxConstraints? menuConstraints,
     bool readOnly = false,
     Color? menuBackgroundColor,
-    bool rightToLeft = false,
+    bool? rightToLeft,
     bool autofocus = true,
     Function? selectedAggregateWidgetFn,
     dynamic padding = 10.0,
@@ -218,7 +218,7 @@ Search choices Widget with a single choice that opens a dialog or a menu to let 
 * menuConstraints BoxConstraints used to define the zone where to display the search menu. Example: BoxConstraints.tight(Size.fromHeight(250)) . Not to be used for dialogBox = true.
 * readOnly bool whether to let the user choose the value to select or just present the selected value if any.
 * menuBackgroundColor Color background color of the menu whether in dialog box or menu mode.
-* rightToLeft bool mirrors the widgets display for right to left languages defaulted to false.
+* rightToLeft bool mirrors the widgets display for right to left languages defaulted to app.
 * autofocus bool automatically focuses on the search field bringing up the keyboard defaulted to true.
 * selectedAggregateWidgetFn Function with parameter: list of widgets presenting selected values, returning Widget to be displayed to present the selected items.
 * padding double or EdgeInsets sets the padding around the DropdownButton, defaulted to 10.0.
@@ -288,7 +288,7 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
     BoxConstraints? menuConstraints,
     bool readOnly = false,
     Color? menuBackgroundColor,
-    bool rightToLeft = false,
+    bool? rightToLeft,
     bool autofocus = true,
     Function? selectedAggregateWidgetFn,
     dynamic padding = 10.0,
@@ -389,7 +389,7 @@ Search choices Widget with a multiple choice that opens a dialog or a menu to le
 * menuConstraints BoxConstraints used to define the zone where to display the search menu. Example: BoxConstraints.tight(Size.fromHeight(250)) . Not to be used for dialogBox = true.
 * readOnly bool whether to let the user choose the value to select or just present the selected value if any.
 * menuBackgroundColor Color background color of the menu whether in dialog box or menu mode.
-* rightToLeft bool mirrors the widgets display for right to left languages defaulted to false.
+* rightToLeft bool mirrors the widgets display for right to left languages defaulted to app.
 * autofocus bool automatically focuses on the search field bringing up the keyboard defaulted to true.
 * selectedAggregateWidgetFn Function with parameter: list of widgets presenting selected values, returning Widget to be displayed to present the selected items.
 * padding double or EdgeInsets sets the padding around the DropdownButton, defaulted to 10.0.

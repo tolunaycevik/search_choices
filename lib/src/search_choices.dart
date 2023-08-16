@@ -131,8 +131,8 @@ class SearchChoices<T> extends FormField<T> {
   final Color? menuBackgroundColor;
 
   /// [rightToLeft] [bool] mirrors the widgets display for right to left
-  /// languages defaulted to false.
-  final bool rightToLeft;
+  /// languages defaulted to app.
+  final bool? rightToLeft;
 
   /// [autofocus] [bool] automatically focuses on the search field bringing up
   /// the keyboard defaulted to true.
@@ -285,8 +285,7 @@ class SearchChoices<T> extends FormField<T> {
     BuildContext context,
     Widget Function({
       String searchTerms,
-    })
-        menuWidget,
+    }) menuWidget,
     String searchTerms,
   )? showDialogFn;
 
@@ -449,7 +448,7 @@ class SearchChoices<T> extends FormField<T> {
   /// * [menuBackgroundColor] [Color] background color of the menu whether in
   /// dialog box or menu mode.
   /// * [rightToLeft] [bool] mirrors the widgets display for right to left
-  /// languages defaulted to false.
+  /// languages defaulted to app.
   /// * [autofocus] [bool] automatically focuses on the search field bringing up
   /// the keyboard defaulted to true.
   /// * [selectedAggregateWidgetFn] [Function] with parameter: __list of widgets
@@ -558,7 +557,7 @@ class SearchChoices<T> extends FormField<T> {
     this.menuConstraints,
     this.readOnly = false,
     this.menuBackgroundColor,
-    this.rightToLeft = false,
+    this.rightToLeft,
     this.autofocus = true,
     this.selectedAggregateWidgetFn,
     this.padding,
@@ -775,7 +774,7 @@ class SearchChoices<T> extends FormField<T> {
     this.menuConstraints,
     this.readOnly = false,
     this.menuBackgroundColor,
-    this.rightToLeft = false,
+    this.rightToLeft,
     this.autofocus = true,
     this.selectedAggregateWidgetFn,
     this.padding,
@@ -889,6 +888,10 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
 
   @override
   SearchChoices<T> get widget => super.widget as SearchChoices<T>;
+
+  bool get rightToLeft =>
+      widget.rightToLeft ??
+      Directionality.maybeOf(context) == TextDirection.rtl;
 
   void giveMeThePop(Function pop) {
     this.pop = pop;
@@ -1165,7 +1168,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
           updateParent!(value);
           setStateFromBuilder(() {});
         },
-        rightToLeft: widget.rightToLeft,
+        rightToLeft: rightToLeft,
         autofocus: widget.autofocus,
         initialSearchTerms: searchTerms,
         buildDropDownDialog: widget.buildDropDownDialog,
@@ -1306,7 +1309,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
                   },
             child: Row(
               textDirection:
-                  widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+                  rightToLeft ? TextDirection.rtl : TextDirection.ltr,
               children: <Widget>[
                 widget.isExpanded
                     ? Expanded(child: innerItemsWidget)
@@ -1328,8 +1331,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
       child: Container(
         padding: padding.resolve(Directionality.of(context)),
         child: Row(
-          textDirection:
-              widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: rightToLeft ? TextDirection.rtl : TextDirection.ltr,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -1347,9 +1349,8 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
                     child: Container(
                       padding: padding.resolve(Directionality.of(context)),
                       child: Row(
-                        textDirection: widget.rightToLeft
-                            ? TextDirection.rtl
-                            : TextDirection.ltr,
+                        textDirection:
+                            rightToLeft ? TextDirection.rtl : TextDirection.ltr,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
@@ -1377,8 +1378,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
     Widget? labelOutput = prepareWidget(widget.label, parameter: selectedResult,
         stringToWidgetFunction: (string) {
       return (Text(string,
-          textDirection:
-              widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+          textDirection: rightToLeft ? TextDirection.rtl : TextDirection.ltr,
           style: TextStyle(color: Colors.blueAccent, fontSize: 13)));
     });
     Widget? fieldPresentation;
@@ -1438,7 +1438,7 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
             : Text(
                 validatorOutput,
                 textDirection:
-                    widget.rightToLeft ? TextDirection.rtl : TextDirection.ltr,
+                    rightToLeft ? TextDirection.rtl : TextDirection.ltr,
                 style: TextStyle(color: Colors.red, fontSize: 13),
               )),
         displayMenu.value ? menuWidget() : SizedBox.shrink(),
