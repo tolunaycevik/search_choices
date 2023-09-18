@@ -1249,9 +1249,10 @@ class _SearchChoicesState<T> extends FormFieldState<T> {
       hintIndex = items.length;
       items.add(DefaultTextStyle(
         style: _textStyle.copyWith(color: Theme.of(context).hintColor),
-        child: IgnorePointer(
-          child: positionedHint,
-          ignoringSemantics: false,
+        child: ExcludeSemantics(
+          child: IgnorePointer(
+            child: positionedHint,
+          ),
         ),
       ));
     }
