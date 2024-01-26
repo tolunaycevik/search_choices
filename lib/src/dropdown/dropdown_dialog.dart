@@ -740,7 +740,6 @@ class _DropdownDialogState<T> extends State<DropdownDialog> {
     return Expanded(
       child: Scrollbar(
         controller: widget.listScrollController,
-        thumbVisibility: widget.itemsPerPage == null ? false : true,
         child: itemsToDisplay.length == 0
             ? emptyList()
             : ListView.builder(
