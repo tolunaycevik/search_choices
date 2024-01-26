@@ -601,7 +601,6 @@ class SearchChoices<T> extends FormField<T> {
           enabled: (items?.isNotEmpty ?? false || futureSearchFn != null) &&
               (onChanged != null || onChanged is Function),
           autovalidateMode: autovalidateMode,
-          restorationId: restorationId,
         ) {
     checkPreconditions();
   }
@@ -818,7 +817,7 @@ class SearchChoices<T> extends FormField<T> {
           enabled: (items?.isNotEmpty ?? false || futureSearchFn != null) &&
               (onChanged != null || onChanged is Function),
           autovalidateMode: autovalidateMode,
-          restorationId: restorationId,
+          
         ) {
     checkPreconditions();
   }
